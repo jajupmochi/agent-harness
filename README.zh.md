@@ -65,11 +65,12 @@ claude-config/
 
 | Phase | 聚焦 | 状态 |
 |---|---|---|
-| P1 | 基础骨架（README、CLAUDE.md、docs、结构） | 已完成（本次 commit） |
+| P1 | 基础骨架（README、CLAUDE.md、docs、结构） | 已完成 |
+| P1.5 | Discovery 扫描：本机工具盘点（zsh_history、npx 缓存、项目依赖、Web 研究）→ 生成草稿 `docs/DISCOVERY.md`（已 gitignore） | 已完成；待林林 review |
 | P2 | 从 `~/.claude/CLAUDE.md` 蒸馏出的工作流规则 | 待开始 |
 | P3 | 可复用钩子（ruff 格式化、jq 校验……） | 待开始 |
 | P4 | 通用技能（verify、preview、long-running-tasks、verify-visual） | 待开始 |
-| P5 | 精选推荐（plugin、marketplace、MCP、CLI 工具、UI/动画工具） | 待开始 |
+| P5 | 精选推荐（约 10 类：CC 插件 / marketplace / MCP / 系统 CLI / JS UI / JS 动画 / JS 3D / JS build·test·styling / web 审计 / 图像处理 / 文档 / ML 研究）—— 由审阅后的 `DISCOVERY.md` 填充 | 待开始 |
 | P6 | 工具偏好 + **可被 Agent 直接执行的安装步骤** | 待开始 |
 | P7 | 项目模板（research-pkg-py、personal-cite-static） | 待开始 |
 | P8 | `setup/init-claude-config` 安装技能 | 待开始 |

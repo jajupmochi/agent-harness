@@ -17,7 +17,7 @@
 
 ## Status
 
-**Current Phase:** P1 — foundation. No content modules populated yet. See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) and the README's status table for the build plan.
+**Current Phase:** P1.5 Discovery completed (draft `docs/DISCOVERY.md` is gitignored, pending Linlin's review). P2 next. No public content modules populated yet. See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) and the README's status table for the full build plan.
 
 ## Rules
 

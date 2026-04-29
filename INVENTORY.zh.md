@@ -17,7 +17,7 @@
 
 ## 当前状态
 
-**当前 Phase：** P1（基础骨架）。内容模块尚未填充。建设计划见 [docs/PHILOSOPHY.zh.md](docs/PHILOSOPHY.zh.md) 与 README 中的状态表。
+**当前 Phase：** P1.5 Discovery 已完成（草稿 `docs/DISCOVERY.md` 已 gitignore，待林林 review）。P2 待开始。公开内容模块尚未填充。建设计划见 [docs/PHILOSOPHY.zh.md](docs/PHILOSOPHY.zh.md) 与 README 中的状态表。
 
 ## Rules
 

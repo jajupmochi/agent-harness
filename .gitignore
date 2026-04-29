@@ -23,6 +23,10 @@ Thumbs.db
 # Local-only — never commit
 CLAUDE.local.md
 
+# P1.5 Discovery draft (private inventory; reviewed locally before P5 promotes selected entries)
+docs/DISCOVERY.md
+docs/DISCOVERY.zh.md
+
 # Python (in case templates are exercised in-repo)
 __pycache__/
 *.pyc
