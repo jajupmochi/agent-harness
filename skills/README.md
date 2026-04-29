@@ -1,0 +1,40 @@
+# Skills
+
+> On-demand skills following the Claude Code SKILL.md spec. Buckets follow mattpocock's convention: `general/`, `research-pkg/`, `static-site/`, `productivity/`, `personal/`.
+
+## Master TOC
+
+- [How to use](#how-to-use)
+- [Skill index](#skill-index)
+- [Adding a new skill](#adding-a-new-skill)
+
+## How to use
+
+Three ways to make a skill available to Claude in a downstream project:
+
+1. **Symlink** — `ln -s ~/.claude/claude-config/skills/general/<name> <project>/.claude/skills/<name>`
+2. **Copy** — copy the directory verbatim
+3. **Plugin** (P10+) — `/plugin install jajupmochi/claude-config` registers all skills
+
+The `setup/init-claude-config` skill (P8) does this automatically based on project type.
+
+Once available, Claude can invoke a skill via the `Skill` tool, or the user via `/<skill-name>`.
+
+## Skill index
+
+| Skill | Bucket | Trigger | Purpose |
+|---|---|---|---|
+| [`verify-template`](general/verify-template/SKILL.md) | general | `/verify` | Run CI gates locally (ruff + mypy + pytest); customize body per project |
+| [`preview-template`](general/preview-template/SKILL.md) | general | `/preview` | Start local dev server; customize per project type |
+| [`long-running-tasks`](general/long-running-tasks/SKILL.md) | general | auto / `/long-running-tasks` | Decision tree for handling long-running operations (background subagent vs Monitor vs explicit timeout) |
+| [`verify-visual`](general/verify-visual/SKILL.md) | general | auto on UI changes | Use chrome-devtools MCP to screenshot + verify visual changes match a reference |
+| [`privacy-redact`](general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | Scan a file for usernames, absolute paths, secrets, project codenames; redact with placeholders |
+
+Future buckets (populated in P7 with templates):
+
+- `research-pkg/` — skills for Python research packages (`new-adapter`, `new-experiment`, …)
+- `static-site/` — skills for static personal sites (`new-round`, `deploy-round`, `i18n-sync`)
+
+## Adding a new skill
+
+See [`docs/CONTRIBUTING.md`](../docs/CONTRIBUTING.md) §"Adding a skill".

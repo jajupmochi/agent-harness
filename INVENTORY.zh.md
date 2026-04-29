@@ -39,14 +39,22 @@
 
 ## Skills
 
-*（空——将在 Phase 4 及之后填充）*
+✅ 已在 P4 填充（2026-04-29）。general 桶 5 个技能 + 索引 README。
 
-预计条目：
+| 技能 | 桶 | 触发 | 用途 |
+|---|---|---|---|
+| [`verify-template`](skills/general/verify-template/SKILL.md) | general | `/verify` | 本地跑 CI 门禁；按项目定制内容 |
+| [`preview-template`](skills/general/preview-template/SKILL.md) | general | `/preview` | 启动本地 dev server；按项目类型定制 |
+| [`long-running-tasks`](skills/general/long-running-tasks/SKILL.md) | general | 自动 / `/long-running-tasks` | 决策树：后台 subagent vs Monitor vs 显式超时 |
+| [`verify-visual`](skills/general/verify-visual/SKILL.md) | general | UI 改动时自动 | chrome-devtools MCP 截图 + 四轴对比参考 |
+| [`privacy-redact`](skills/general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | 扫描并 redact 用户名、绝对路径、密钥、代号 |
 
-- `skills/general/verify-template/` —— 参数化的"本地跑一遍 CI 门禁"技能（ruff + mypy + pytest）
-- `skills/general/preview-template/` —— 本地 dev-server 启动器
-- `skills/general/long-running-tasks/` —— Agent 超时决策树（后台 subagent vs Monitor vs 显式超时）
-- `skills/general/verify-visual/` —— chrome-devtools MCP 视觉验证模式
+后续桶（将在 P7 模板里填充）：
+
+- `research-pkg/` —— Python 研究包专用（`new-adapter`、`new-experiment` 等）
+- `static-site/` —— 静态主页专用（`new-round`、`deploy-round`、`i18n-sync`）
+
+详见 [`skills/README.md`](skills/README.md)。
 
 ## Hooks
 

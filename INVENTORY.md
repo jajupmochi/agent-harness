@@ -39,14 +39,22 @@ See [`rules/README.md`](rules/README.md) for usage details and scope-tag definit
 
 ## Skills
 
-*(empty — to be populated in Phase 4 and later)*
+✅ Populated in P4 (2026-04-29). 5 general-bucket skills + index README.
 
-Anticipated entries:
+| Skill | Bucket | Trigger | Purpose |
+|---|---|---|---|
+| [`verify-template`](skills/general/verify-template/SKILL.md) | general | `/verify` | Run CI gates locally; customize per project |
+| [`preview-template`](skills/general/preview-template/SKILL.md) | general | `/preview` | Start local dev server; customize per project type |
+| [`long-running-tasks`](skills/general/long-running-tasks/SKILL.md) | general | auto / `/long-running-tasks` | Decision tree: background subagent vs Monitor vs explicit timeout |
+| [`verify-visual`](skills/general/verify-visual/SKILL.md) | general | auto on UI changes | chrome-devtools MCP screenshot + 4-axis self-critique against reference |
+| [`privacy-redact`](skills/general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | Scan + redact usernames, absolute paths, secrets, codenames |
 
-- `skills/general/verify-template/` — parametrized "run CI gates locally" skill (ruff + mypy + pytest)
-- `skills/general/preview-template/` — local dev-server starter
-- `skills/general/long-running-tasks/` — agent-timeout decision tree (background subagent vs Monitor vs explicit timeout)
-- `skills/general/verify-visual/` — chrome-devtools MCP visual verification pattern
+Future buckets (populated in P7 with templates):
+
+- `research-pkg/` — skills for Python research packages (`new-adapter`, `new-experiment`, …)
+- `static-site/` — skills for static personal sites (`new-round`, `deploy-round`, `i18n-sync`)
+
+See [`skills/README.md`](skills/README.md) for usage details.
 
 ## Hooks
 

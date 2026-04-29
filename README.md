@@ -69,7 +69,7 @@ Currently at **Phase 1 — foundation**. The 10-phase build plan:
 | P1.5 | Discovery scan: local tools inventory (zsh_history, npx cache, project deps, web research) → draft `docs/DISCOVERY.md` (gitignored) | done; awaiting Linlin's review |
 | P2 | Workflow rules distilled from `~/.claude/CLAUDE.md` | done |
 | P3 | Reusable hooks (ruff format, jq validate, …) | done |
-| P4 | General-purpose skills (verify, preview, long-running-tasks, verify-visual) | pending |
+| P4 | General-purpose skills (verify, preview, long-running-tasks, verify-visual, privacy-redact) | done |
 | P5 | Recommendations (~10 categories: CC plugins, marketplaces, MCP servers, system CLIs, JS UI, JS animation, JS 3D, JS build/test/styling, web auditing, image processing, docs, ML/research) — populated from reviewed `DISCOVERY.md` | pending |
 | P6 | Tooling preferences with **agent-executable install steps** | pending |
 | P7 | Project templates (research-pkg-py, personal-cite-static) | pending |
