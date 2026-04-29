@@ -17,7 +17,7 @@
 
 ## 当前状态
 
-**当前 Phase：** 全部 10 个阶段完成（v0.1.0 发布于 2026-04-29）。发布后：外部发布渠道状态记在 [PUBLISHING.md](PUBLISHING.md)；git history 已通过 `git filter-repo` 清理 `linlin-init` literal + `/home/linlin/` 路径。
+**当前 Phase：** 全部 10 个阶段完成（v0.1.0 发布于 2026-04-29）。发布后：外部发布渠道状态记在 [PUBLISHING.md](PUBLISHING.md)；git history 已通过 `git filter-repo` 清理早期的 setup-skill literal + 用户特定绝对路径（见 git log 的 rewrite 记录）。
 
 - P1：基础骨架 ✓
 - P1.5：Discovery（gitignore）✓
