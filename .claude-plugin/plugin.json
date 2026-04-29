@@ -1,0 +1,75 @@
+{
+  "name": "claude-config",
+  "version": "0.1.0",
+  "description": "Linlin's curated Claude Code configuration: workflow rules, skills, hooks, plugin recommendations, tooling preferences, and project templates. Install once, then run /init-claude-config in any new project to scaffold it with the relevant subset.",
+  "author": {
+    "name": "Linlin Jia",
+    "github": "jajupmochi"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/jajupmochi/claude-config",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jajupmochi/claude-config"
+  },
+  "keywords": [
+    "claude-code",
+    "skills",
+    "hooks",
+    "workflow-rules",
+    "scaffold",
+    "research-package",
+    "static-site",
+    "ml-research"
+  ],
+  "skills": [
+    "skills/general/verify-template",
+    "skills/general/preview-template",
+    "skills/general/long-running-tasks",
+    "skills/general/verify-visual",
+    "skills/general/privacy-redact",
+    "setup/init-claude-config"
+  ],
+  "rules": [
+    "rules/chinese-output",
+    "rules/pre-edit-confirmation",
+    "rules/phased-planning",
+    "rules/plugin-preflight",
+    "rules/ui-iteration-loop",
+    "rules/output-brevity",
+    "rules/tool-proactivity",
+    "rules/no-reread-files",
+    "rules/bilingual-docs"
+  ],
+  "hooks": [
+    "hooks/ruff-format-on-edit",
+    "hooks/jq-validate-json"
+  ],
+  "templates": [
+    "templates/research-package-py",
+    "templates/personal-cite-static"
+  ],
+  "recommendations": [
+    "recommendations/cc-plugins.md",
+    "recommendations/cc-marketplaces-and-skill-bundles.md",
+    "recommendations/cli-tools.md",
+    "recommendations/js-ui-and-design.md",
+    "recommendations/js-animation-and-3d.md",
+    "recommendations/js-build-test-style.md",
+    "recommendations/js-state-data.md",
+    "recommendations/web-auditing.md",
+    "recommendations/image-video-pdf.md",
+    "recommendations/docs-tools.md",
+    "recommendations/ml-research.md",
+    "recommendations/orchestra-ml-skills.md"
+  ],
+  "tooling": [
+    "tooling/python-uv-ruff",
+    "tooling/node-nvm",
+    "tooling/permissions-allowlist"
+  ],
+  "_notes": [
+    "This manifest follows the conventions emerging in the Claude Code plugin ecosystem (mattpocock/skills, anthropics/claude-plugins-official). The exact field names may need adjustment as the plugin spec stabilizes — see https://code.claude.com/docs/en/plugins for the canonical reference.",
+    "When the spec stabilizes, this file may need: a 'commands' array for slash-command overrides, an 'mcpServers' array if any MCP servers are bundled (currently none), a 'lspServers' array (currently none), or a 'manifestVersion' field."
+  ]
+}

@@ -17,7 +17,21 @@
 
 ## Status
 
-**Current Phase:** P1.5 Discovery completed (draft `docs/DISCOVERY.md` is gitignored, pending Linlin's review). P2 next. No public content modules populated yet. See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) and the README's status table for the full build plan.
+**Current Phase:** All 10 phases complete (v0.1.0 shipped 2026-04-29).
+
+- P1: Foundation ✓
+- P1.5: Discovery (gitignored) ✓
+- P2: Rules ✓
+- P3: Hooks ✓
+- P4: Skills ✓
+- P5: Recommendations ✓
+- P6: Tooling ✓
+- P7: Templates ✓
+- P8: Setup skill ✓
+- P9: LICENSE + meta-skills + GitHub publish ✓ (https://github.com/jajupmochi/claude-config)
+- P10: Plugin packaging (`.claude-plugin/plugin.json`) ✓
+
+See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) and README's "Build history" for details.
 
 ## Rules
 

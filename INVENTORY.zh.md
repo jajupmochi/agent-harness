@@ -17,7 +17,21 @@
 
 ## 当前状态
 
-**当前 Phase：** P1.5 Discovery 已完成（草稿 `docs/DISCOVERY.md` 已 gitignore，待林林 review）。P2 待开始。公开内容模块尚未填充。建设计划见 [docs/PHILOSOPHY.zh.md](docs/PHILOSOPHY.zh.md) 与 README 中的状态表。
+**当前 Phase：** 全部 10 个阶段完成（v0.1.0 发布于 2026-04-29）。
+
+- P1：基础骨架 ✓
+- P1.5：Discovery（gitignore）✓
+- P2：规则 ✓
+- P3：钩子 ✓
+- P4：技能 ✓
+- P5：推荐清单 ✓
+- P6：工具偏好 ✓
+- P7：项目模板 ✓
+- P8：安装技能 ✓
+- P9：LICENSE + 元技能 + GitHub publish ✓（https://github.com/jajupmochi/claude-config）
+- P10：Plugin packaging（`.claude-plugin/plugin.json`）✓
+
+详见 [docs/PHILOSOPHY.zh.md](docs/PHILOSOPHY.zh.md) 与 README 的"构建历程"。
 
 ## Rules
 
