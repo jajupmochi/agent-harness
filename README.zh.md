@@ -19,6 +19,7 @@
 - [项目模板](#项目模板)
 - [安装技能 `/init-claude-config`](#安装技能-init-claude-config)
 - [给维护者](#给维护者)
+- [发布到外部目录](#发布到外部目录)
 - [构建历程](#构建历程)
 - [贡献](#贡献)
 - [许可](#许可)
@@ -224,6 +225,18 @@ claude-config/
 | [`/publish`](.claude/skills/publish/SKILL.md) | 打 SemVer tag + push + GitHub release（notes 从 git log 生成） |
 
 加上 [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md)——新增 rules / skills / hooks / recommendations / tooling / templates 的正式规范，含 inventory-同步要求。
+
+## 发布到外部目录
+
+仓库同时正在发布到社区目录方便发现。各渠道状态记录在 **[PUBLISHING.md](PUBLISHING.md)**：
+
+| 渠道 | 状态 |
+|---|---|
+| GitHub Topics（`claude-code`、`claude-skills`、`claude-config`、`claude-plugin`、`scaffold`、`workflow-rules`、`ai-coding`、`developer-tools`） | ✅ 已设置——可通过 GitHub topic 页面发现 |
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) PR | 🟡 Fork + 分支已推——一键开 PR：见 [PUBLISHING.md §1](PUBLISHING.md#1-awesome-claude-code-pr--almost-auto-one-click-left-for-you) |
+| Anthropic 官方 plugin marketplace（[clau.de/plugin-directory-submission](https://clau.de/plugin-directory-submission)） | ⚪ 需手动填表——表单内容已准备好，见 [PUBLISHING.md §2](PUBLISHING.md#2-anthropic-plugin-marketplace-manual-form) |
+| [claudemarketplaces.com](https://claudemarketplaces.com/) / [buildwithclaude.com](https://buildwithclaude.com/) | ⚪ 大概率自动聚合（topics 设好后 ~24h） |
+| npm registry（`npx claude-config`） | ⚪ 需 `npm login` + `npm publish`——见 [PUBLISHING.md §4](PUBLISHING.md#4-npm-registry-manual-npm-login--npm-publish)。当前可用 `npx github:jajupmochi/claude-config` |
 
 ## 构建历程
 
