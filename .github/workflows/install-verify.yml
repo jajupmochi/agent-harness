@@ -1,0 +1,168 @@
+name: Install Verification Matrix
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    # Weekly safety net — catches drift if upstream tooling changes
+    - cron: '0 12 * * 1'  # Mondays 12:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npx-install:
+    name: npx (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install via `npx github:jajupmochi/claude-config`
+        run: |
+          # Run install in a temp HOME so we don't pollute the runner
+          export HOME=$(mktemp -d)
+          npx --yes github:jajupmochi/claude-config
+
+          # Verify clone landed
+          test -d "$HOME/.claude/claude-config" || { echo "::error::~/.claude/claude-config missing"; exit 1; }
+
+          # Verify symlink (or directory) for the init skill
+          if [ ! -e "$HOME/.claude/skills/init-claude-config" ]; then
+            echo "::error::Skill not registered at ~/.claude/skills/init-claude-config"
+            exit 1
+          fi
+
+          # Verify the SKILL.md is reachable through the symlink
+          test -f "$HOME/.claude/claude-config/setup/init-claude-config/SKILL.md" \
+            || { echo "::error::SKILL.md missing in clone"; exit 1; }
+
+          echo "✓ npx install verified"
+
+  local-clone:
+    name: Local clone + symlink (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: git clone + symlink the init skill
+        run: |
+          export HOME=$(mktemp -d)
+          git clone https://github.com/jajupmochi/claude-config.git "$HOME/.claude/claude-config"
+          mkdir -p "$HOME/.claude/skills"
+          ln -s "$HOME/.claude/claude-config/setup/init-claude-config" "$HOME/.claude/skills/init-claude-config"
+
+          # Verify
+          test -f "$HOME/.claude/claude-config/setup/init-claude-config/SKILL.md" \
+            || { echo "::error::SKILL.md missing"; exit 1; }
+          test -L "$HOME/.claude/skills/init-claude-config" \
+            || { echo "::error::Symlink missing"; exit 1; }
+          test "$(readlink $HOME/.claude/skills/init-claude-config)" = "$HOME/.claude/claude-config/setup/init-claude-config" \
+            || { echo "::error::Symlink target wrong"; exit 1; }
+
+          echo "✓ local-clone install verified"
+
+  raw-url:
+    name: Raw URL @import fetch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch key snippet URLs
+        run: |
+          set -e
+          paths=(
+            'rules/pre-edit-confirmation/snippet.md'
+            'rules/phased-planning/snippet.md'
+            'rules/plugin-preflight/snippet.md'
+            'rules/output-brevity/snippet.md'
+            'skills/general/verify-template/SKILL.md'
+            'skills/general/long-running-tasks/SKILL.md'
+            'setup/init-claude-config/SKILL.md'
+            'hooks/ruff-format-on-edit/settings.snippet.json'
+            'hooks/jq-validate-json/settings.snippet.json'
+            '.claude-plugin/plugin.json'
+            'README.md'
+            'USAGE.md'
+          )
+          for path in "${paths[@]}"; do
+            url="https://raw.githubusercontent.com/jajupmochi/claude-config/main/${path}"
+            echo "  Fetching ${path}..."
+            content=$(curl -fsSL --max-time 10 "${url}")
+            test -n "${content}" || { echo "::error::Empty response from ${url}"; exit 1; }
+          done
+          echo "✓ All ${#paths[@]} raw URLs reachable"
+
+  plugin-manifest:
+    name: Plugin manifest validity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate .claude-plugin/plugin.json structure
+        run: |
+          jq empty .claude-plugin/plugin.json
+          # Required fields per plugin spec (best-effort, spec is evolving):
+          jq -e '.name and .version and .description and .skills and .author' .claude-plugin/plugin.json \
+            > /dev/null || { echo "::error::plugin.json missing required fields"; exit 1; }
+
+          # Verify referenced skill paths exist
+          for skill in $(jq -r '.skills[]' .claude-plugin/plugin.json); do
+            test -d "${skill}" || { echo "::error::Referenced skill missing: ${skill}"; exit 1; }
+            test -f "${skill}/SKILL.md" || { echo "::error::SKILL.md missing in ${skill}"; exit 1; }
+          done
+
+          # Verify referenced rule paths exist
+          for rule in $(jq -r '.rules[]?' .claude-plugin/plugin.json 2>/dev/null); do
+            test -f "${rule}/RULE.md" || { echo "::error::Referenced rule missing: ${rule}"; exit 1; }
+          done
+
+          echo "✓ Plugin manifest valid + all referenced paths exist"
+
+  npx-script-syntax:
+    name: bin/install.js syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Node syntax check on install script
+        run: |
+          node --check bin/install.js
+          # Also check the package.json bin entry resolves
+          jq -e '.bin["claude-config"]' package.json > /dev/null
+          test -x bin/install.js || { echo "::error::bin/install.js not executable"; exit 1; }
+          echo "✓ install.js valid + executable"
+
+  summary:
+    name: All install methods verified
+    runs-on: ubuntu-latest
+    needs: [npx-install, local-clone, raw-url, plugin-manifest, npx-script-syntax]
+    if: always()
+    steps:
+      - name: Aggregate
+        run: |
+          echo "Install methods verified:"
+          echo "  npx (ubuntu/macos):     ${{ needs.npx-install.result }}"
+          echo "  Local clone (ubuntu/macos): ${{ needs.local-clone.result }}"
+          echo "  Raw URL fetch:          ${{ needs.raw-url.result }}"
+          echo "  Plugin manifest:        ${{ needs.plugin-manifest.result }}"
+          echo "  bin/install.js:         ${{ needs.npx-script-syntax.result }}"
+          if [ "${{ needs.npx-install.result }}" = "success" ] \
+             && [ "${{ needs.local-clone.result }}" = "success" ] \
+             && [ "${{ needs.raw-url.result }}" = "success" ] \
+             && [ "${{ needs.plugin-manifest.result }}" = "success" ] \
+             && [ "${{ needs.npx-script-syntax.result }}" = "success" ]; then
+            echo "✓ All install methods verified"
+          else
+            echo "❌ One or more install methods failed"
+            exit 1
+          fi
