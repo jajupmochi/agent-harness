@@ -92,13 +92,15 @@
 
 ## Tooling
 
-*（空——将在 Phase 6 填充）*
+✅ 已在 P6 填充（2026-04-29）。3 个工具类目 + 索引 README。
 
-预计条目：
+| 目录 | Context | 给出什么 |
+|---|---|---|
+| [python-uv-ruff/](tooling/python-uv-ruff/README.md) | research-pkg | `uv` + `ruff` 安装步骤 + 标准 `pyproject.template.toml`（extras、ruff 配置、mypy、pytest） |
+| [node-nvm/](tooling/node-nvm/README.md) | ui-project、electron-or-desktop | nvm 安装 + Node 22 LTS + 最小化全局包哲学 + scaffold 指引 |
+| [permissions-allowlist/](tooling/permissions-allowlist/README.md) | always（按需） | `settings.local.snippet.json`：从真实项目里提炼的常见安全 Bash 白名单 |
 
-- `tooling/python-uv-ruff/` —— `pyproject.template.toml` + `ruff.template.toml` + README 带 **agent 可直接执行的安装命令**
-- `tooling/node-nvm/` —— Node 工具链 bootstrap，**agent 可直接执行的安装命令**
-- `tooling/permissions-allowlist/` —— 来自真实项目 `settings.local.json` 的常见 `Bash(...)` 白名单
+详见 [`tooling/README.md`](tooling/README.md)。
 
 ## Templates
 

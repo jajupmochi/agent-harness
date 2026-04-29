@@ -92,13 +92,15 @@ See [`recommendations/README.md`](recommendations/README.md) for context tags an
 
 ## Tooling
 
-*(empty — to be populated in Phase 6)*
+✅ Populated in P6 (2026-04-29). 3 tooling categories + index README.
 
-Anticipated entries:
+| Folder | Context | What it gives |
+|---|---|---|
+| [python-uv-ruff/](tooling/python-uv-ruff/README.md) | research-pkg | `uv` + `ruff` install steps + canonical `pyproject.template.toml` (extras, ruff config, mypy, pytest) |
+| [node-nvm/](tooling/node-nvm/README.md) | ui-project, electron-or-desktop | nvm install + Node 22 LTS + minimal-globals philosophy + scaffold pointers |
+| [permissions-allowlist/](tooling/permissions-allowlist/README.md) | always (selectively) | Drop-in `settings.local.snippet.json` of common safe Bash patterns from real projects |
 
-- `tooling/python-uv-ruff/` — `pyproject.template.toml` + `ruff.template.toml` + README with **agent-executable install commands**
-- `tooling/node-nvm/` — Node toolchain bootstrap with **agent-executable install commands**
-- `tooling/permissions-allowlist/` — common `Bash(...)` allowlist entries from real projects' `settings.local.json`
+See [`tooling/README.md`](tooling/README.md) for usage.
 
 ## Templates
 
