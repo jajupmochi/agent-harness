@@ -74,7 +74,7 @@ claude-config/
 | P6 | 工具偏好 + **可被 Agent 直接执行的安装步骤**（python-uv-ruff、node-nvm、permissions-allowlist） | 已完成 |
 | P7 | 项目模板（research-pkg-py、personal-cite-static） | 已完成 |
 | P8 | `setup/init-claude-config` 安装技能（从模板 + 选定 rules/hooks/tooling 交互式 scaffold） | 已完成 |
-| P9 | 仓库元配置（LICENSE、元技能、GitHub 发布） | 待开始 |
+| P9 | 仓库元配置（LICENSE、元技能 `new-rule`/`new-skill`/`new-hook`/`publish`、GitHub 发布） | 已完成 |
 | P10 | 包装为 Plugin（可选） | 待开始 |
 
 ## 贡献
@@ -83,4 +83,4 @@ claude-config/
 
 ## 许可
 
-MIT —— `LICENSE` 文件在 Phase 9 加入。
+MIT —— 见 [LICENSE](LICENSE)。

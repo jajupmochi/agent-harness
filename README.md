@@ -74,7 +74,7 @@ Currently at **Phase 1 — foundation**. The 10-phase build plan:
 | P6 | Tooling preferences with **agent-executable install steps** (python-uv-ruff, node-nvm, permissions-allowlist) | done |
 | P7 | Project templates (research-pkg-py, personal-cite-static) | done |
 | P8 | `setup/init-claude-config` install skill (interactive scaffold from template + selected rules/hooks/tooling) | done |
-| P9 | Repo meta (LICENSE, meta-skills, GitHub publish) | pending |
+| P9 | Repo meta (LICENSE, meta-skills `new-rule`/`new-skill`/`new-hook`/`publish`, GitHub publish) | done |
 | P10 | Plugin packaging (optional) | pending |
 
 ## Contributing
@@ -83,4 +83,4 @@ See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). PRs welcome; please open an is
 
 ## License
 
-MIT — `LICENSE` file lands in Phase 9.
+MIT — see [LICENSE](LICENSE).
