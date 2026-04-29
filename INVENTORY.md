@@ -69,16 +69,26 @@ See [`hooks/README.md`](hooks/README.md) for install instructions.
 
 ## Recommendations
 
-*(empty — to be populated in Phase 5)*
+✅ Populated in P5 (2026-04-29). 12 active files + 2 reference tables + index README.
 
-Anticipated entries:
+| File | Context | Coverage |
+|---|---|---|
+| [cc-plugins.md](recommendations/cc-plugins.md) | always | 37 Claude Code plugins (workflow, integrations, specialized) |
+| [cc-marketplaces-and-skill-bundles.md](recommendations/cc-marketplaces-and-skill-bundles.md) | always | 4 third-party marketplaces + 9 skill bundles via `npx skills add` |
+| [cli-tools.md](recommendations/cli-tools.md) | always (selectively) | System CLIs (jq, gh, ripgrep, fd, …) + Python user CLIs (uv, ruff, mkdocs, hf, …) |
+| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide, Radix full set, lenis, d3, visx, recharts, monaco, tanstack/table, shadcn |
+| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | ui-project + 3d-or-animation | motion, gsap, lottie-react, tailwindcss-animate; three, R3F, drei, mediapipe |
+| [js-build-test-style.md](recommendations/js-build-test-style.md) | ui-project | vite, next, electron, vitest, playwright, storybook, tailwindcss, prettier |
+| [js-state-data.md](recommendations/js-state-data.md) | ui-project | pinia, zustand, swr, vueuse, vue-i18n, vue-router, next-themes |
+| [web-auditing.md](recommendations/web-auditing.md) | static-site / web-perf | chrome-devtools MCP (default), lighthouse CLI, lhci, pa11y, axe-core |
+| [image-video-pdf.md](recommendations/image-video-pdf.md) | image-or-video-work | sharp, svgo, imagemin, ffmpeg (apt), puppeteer |
+| [docs-tools.md](recommendations/docs-tools.md) | docs-site | mkdocs + material, ghp-import, latexmk (apt) |
+| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli], datasets, gpustat, kaleido, selenium |
+| [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21-category ML skill stack incl. `0-autoresearch-skill` meta-orchestrator |
+| [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always (lookup) | apt-installed packages — knowledge table only, never auto-install |
+| [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always (lookup) | VS Code extensions — knowledge table only, CC-friendly defaults flagged |
 
-- `recommendations/plugins.md` — 35+ Claude Code plugins (curated subset from `~/.claude/settings.json`) with one-line "why use this" per entry
-- `recommendations/marketplaces.md` — superpowers, minimax-skills, garden-skills, ui-ux-pro-max-skill, …
-- `recommendations/mcp-servers.md` — chrome-devtools, microsoft-docs, sourcegraph, …
-- `recommendations/cli-tools.md` — uv, gh, ripgrep, fd, …
-- `recommendations/ui-design-tools.md` — npm/npx-installed UI / animation / design tools (planned scope expansion)
-- `recommendations/animation-tools.md` — GSAP, Framer Motion, Lottie tooling, …
+See [`recommendations/README.md`](recommendations/README.md) for context tags and how `setup/init-claude-config` (P8) decides what to install per project type.
 
 ## Tooling
 

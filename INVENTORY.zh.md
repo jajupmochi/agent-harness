@@ -69,16 +69,26 @@
 
 ## Recommendations
 
-*（空——将在 Phase 5 填充）*
+✅ 已在 P5 填充（2026-04-29）。12 个 active 文件 + 2 个 reference table + 索引 README。
 
-预计条目：
+| 文件 | Context | 覆盖 |
+|---|---|---|
+| [cc-plugins.md](recommendations/cc-plugins.md) | always | 37 个 Claude Code 插件（workflow / 集成 / specialized） |
+| [cc-marketplaces-and-skill-bundles.md](recommendations/cc-marketplaces-and-skill-bundles.md) | always | 4 个第三方 marketplace + 9 个 `npx skills add` 装的 skill bundle |
+| [cli-tools.md](recommendations/cli-tools.md) | always（按需） | 系统 CLI（jq、gh、ripgrep、fd 等）+ Python 用户级 CLI（uv、ruff、mkdocs、hf 等） |
+| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide、Radix 全套、lenis、d3、visx、recharts、monaco、tanstack/table、shadcn |
+| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | ui-project + 3d-or-animation | motion、gsap、lottie-react、tailwindcss-animate；three、R3F、drei、mediapipe |
+| [js-build-test-style.md](recommendations/js-build-test-style.md) | ui-project | vite、next、electron、vitest、playwright、storybook、tailwindcss、prettier |
+| [js-state-data.md](recommendations/js-state-data.md) | ui-project | pinia、zustand、swr、vueuse、vue-i18n、vue-router、next-themes |
+| [web-auditing.md](recommendations/web-auditing.md) | static-site / web-perf | chrome-devtools MCP（默认）、lighthouse CLI、lhci、pa11y、axe-core |
+| [image-video-pdf.md](recommendations/image-video-pdf.md) | image-or-video-work | sharp、svgo、imagemin、ffmpeg（apt）、puppeteer |
+| [docs-tools.md](recommendations/docs-tools.md) | docs-site | mkdocs + material、ghp-import、latexmk（apt） |
+| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli]、datasets、gpustat、kaleido、selenium |
+| [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21 类 ML 技能栈，含 `0-autoresearch-skill` 元编排器 |
+| [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always（查询） | apt 包知识表——绝不自动安装 |
+| [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always（查询） | VS Code 扩展知识表——绝不自动安装；CC-friendly 默认值已标注 |
 
-- `recommendations/plugins.md` —— 35+ Claude Code 插件（从 `~/.claude/settings.json` 精选）每条一行"为什么用"
-- `recommendations/marketplaces.md` —— superpowers、minimax-skills、garden-skills、ui-ux-pro-max-skill 等
-- `recommendations/mcp-servers.md` —— chrome-devtools、microsoft-docs、sourcegraph 等
-- `recommendations/cli-tools.md` —— uv、gh、ripgrep、fd 等
-- `recommendations/ui-design-tools.md` —— npm/npx 安装的 UI / 动画 / 设计工具（按你新加的需求扩展范围）
-- `recommendations/animation-tools.md` —— GSAP、Framer Motion、Lottie 工具链等
+详见 [`recommendations/README.md`](recommendations/README.md)（context 标签 + `setup/init-claude-config` 如何按项目类型决定安装哪些）。
 
 ## Tooling
 

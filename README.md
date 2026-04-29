@@ -70,7 +70,7 @@ Currently at **Phase 1 — foundation**. The 10-phase build plan:
 | P2 | Workflow rules distilled from `~/.claude/CLAUDE.md` | done |
 | P3 | Reusable hooks (ruff format, jq validate, …) | done |
 | P4 | General-purpose skills (verify, preview, long-running-tasks, verify-visual, privacy-redact) | done |
-| P5 | Recommendations (~10 categories: CC plugins, marketplaces, MCP servers, system CLIs, JS UI, JS animation, JS 3D, JS build/test/styling, web auditing, image processing, docs, ML/research) — populated from reviewed `DISCOVERY.md` | pending |
+| P5 | Recommendations (12 active files: CC plugins, marketplaces+skill-bundles, CLI tools, JS UI, JS animation+3D, JS build/test/style, JS state, web auditing, image/video/PDF, docs, ML/research, orchestra ML skills + 2 reference tables) — populated from reviewed `DISCOVERY.md` | done |
 | P6 | Tooling preferences with **agent-executable install steps** | pending |
 | P7 | Project templates (research-pkg-py, personal-cite-static) | pending |
 | P8 | `setup/init-claude-config` install skill | pending |
