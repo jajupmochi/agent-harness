@@ -115,8 +115,10 @@ See [`templates/README.md`](templates/README.md) for usage. The `setup/init-clau
 
 ## Setup
 
-*(empty — to be populated in Phase 8)*
+✅ Populated in P8 (2026-04-29). 1 setup skill + index README.
 
-Anticipated entry:
+| Skill | Purpose |
+|---|---|
+| [`init-claude-config`](setup/init-claude-config/SKILL.md) | Interactive `/init-claude-config` slash command. Asks 6 questions (project type, bilingual policy, final-output language, context tags, consumption mode, personal-preference rules), then composes the right subset of rules/hooks/skills/templates/tooling into the project. |
 
-- `setup/init-claude-config/SKILL.md` — the install / scaffold skill. Asks the user about: project type, bilingual policy, primary language, which rules / hooks / skills / templates apply. Then composes a project's `CLAUDE.md`, `.claude/settings.json`, and starter `.claude/skills/` from the library.
+See [`setup/README.md`](setup/README.md) for usage.

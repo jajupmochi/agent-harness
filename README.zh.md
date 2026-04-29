@@ -73,7 +73,7 @@ claude-config/
 | P5 | 精选推荐（12 个 active：CC 插件 / marketplace+skill bundle / CLI / JS UI / JS 动画+3D / JS build·test·style / JS state / web 审计 / 图像视频 PDF / docs / ML 研究 / orchestra ML 技能栈 + 2 个 reference table）—— 由审阅后的 `DISCOVERY.md` 填充 | 已完成 |
 | P6 | 工具偏好 + **可被 Agent 直接执行的安装步骤**（python-uv-ruff、node-nvm、permissions-allowlist） | 已完成 |
 | P7 | 项目模板（research-pkg-py、personal-cite-static） | 已完成 |
-| P8 | `setup/init-claude-config` 安装技能 | 待开始 |
+| P8 | `setup/init-claude-config` 安装技能（从模板 + 选定 rules/hooks/tooling 交互式 scaffold） | 已完成 |
 | P9 | 仓库元配置（LICENSE、元技能、GitHub 发布） | 待开始 |
 | P10 | 包装为 Plugin（可选） | 待开始 |
 

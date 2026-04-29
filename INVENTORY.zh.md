@@ -115,8 +115,10 @@
 
 ## Setup
 
-*（空——将在 Phase 8 填充）*
+✅ 已在 P8 填充（2026-04-29）。1 个安装技能 + 索引 README。
 
-预计条目：
+| 技能 | 用途 |
+|---|---|
+| [`init-claude-config`](setup/init-claude-config/SKILL.md) | 交互式 `/init-claude-config` 斜杠命令。问 6 个问题（项目类型、双语策略、终端输出语言、context 标签、消费方式、个人偏好规则），然后从库中组合相应子集的 rules / hooks / skills / templates / tooling 到项目里。 |
 
-- `setup/init-claude-config/SKILL.md` —— 安装 / scaffold 技能。询问用户：项目类型、双语策略、主语言、应用哪些 rules / hooks / skills / templates。然后从库里组合出项目的 `CLAUDE.md`、`.claude/settings.json` 和初始 `.claude/skills/`。
+详见 [`setup/README.md`](setup/README.md)。
