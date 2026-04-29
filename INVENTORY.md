@@ -17,7 +17,7 @@
 
 ## Status
 
-**Current Phase:** All 10 phases complete (v0.1.0 shipped 2026-04-29). Post-launch: external publishing tracked in [PUBLISHING.md](PUBLISHING.md). Git history scrubbed via `git filter-repo` to remove pre-rename `linlin-init` literals + `/home/linlin/` paths.
+**Current Phase:** All 10 phases complete (v0.1.0 shipped 2026-04-29). Post-launch: external publishing tracked in [PUBLISHING.md](PUBLISHING.md). Git history scrubbed via `git filter-repo` to remove pre-rename setup-skill literals + user-specific absolute paths (see commit log for the rewrite).
 
 - P1: Foundation ✓
 - P1.5: Discovery (gitignored) ✓
