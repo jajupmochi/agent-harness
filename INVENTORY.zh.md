@@ -1,0 +1,96 @@
+# 内容总目（Inventory）
+
+> 库中已收录条目的主索引。每次新增 / 删除 / 重命名都需更新。
+
+> **语言：** [English](INVENTORY.md) | 中文
+
+## Master TOC
+
+- [当前状态](#当前状态)
+- [Rules](#rules)
+- [Skills](#skills)
+- [Hooks](#hooks)
+- [Recommendations](#recommendations)
+- [Tooling](#tooling)
+- [Templates](#templates)
+- [Setup](#setup)
+
+## 当前状态
+
+**当前 Phase：** P1（基础骨架）。内容模块尚未填充。建设计划见 [docs/PHILOSOPHY.zh.md](docs/PHILOSOPHY.zh.md) 与 README 中的状态表。
+
+## Rules
+
+*（空——将在 Phase 2 填充）*
+
+预计条目（从 `~/.claude/CLAUDE.md` 蒸馏）：
+
+- `chinese-output` —— 最终面向用户的输出用中文；中间过程保持英文
+- `pre-edit-confirmation` —— 在任何 Edit / Write 之前，先列出精确目标 + 一句话计划，等用户 explicit "go"
+- `phased-planning` —— 中大任务（3+ 文件 / > ~5 次工具调用 / 多步骤）分阶段编号，列出每阶段交付物
+- `plugin-preflight` —— 调用插件 / skill / 命令前先验证已安装且未弃用
+- `ui-iteration-loop` —— 自动 8 轮 UI 迭代循环，配 chrome-devtools 截图与四轴自评
+- `output-brevity` —— 不在末尾复述、不回显工具输出、不重读同一文件、优先 Edit 而非 Write
+- `tool-proactivity` —— 已安装的插件 / skill / MCP 匹配场景时主动调用（含若干"必须先确认"的例外）
+- `no-reread-files` —— 信任你这段 session 内对文件内容的记忆；除非真的变了不再重读
+- `bilingual-docs` —— `NAME.md` + `NAME.zh.md` 的双语文档约定（消费方按需启用，via `setup/init-claude-config`）
+
+## Skills
+
+*（空——将在 Phase 4 及之后填充）*
+
+预计条目：
+
+- `skills/general/verify-template/` —— 参数化的"本地跑一遍 CI 门禁"技能（ruff + mypy + pytest）
+- `skills/general/preview-template/` —— 本地 dev-server 启动器
+- `skills/general/long-running-tasks/` —— Agent 超时决策树（后台 subagent vs Monitor vs 显式超时）
+- `skills/general/verify-visual/` —— chrome-devtools MCP 视觉验证模式
+
+## Hooks
+
+*（空——将在 Phase 3 填充）*
+
+预计条目：
+
+- `hooks/ruff-format-on-edit/` —— `PostToolUse:Write|Edit` 钩子，给 Python 文件做格式化。统一各项目里 `uv run` / `uv tool run` / `uvx` 三种写法。
+- `hooks/jq-validate-json/` —— `PostToolUse:Write|Edit` 钩子，校验 JSON 文件有效性（i18n 一致性、配置完整性）。
+
+## Recommendations
+
+*（空——将在 Phase 5 填充）*
+
+预计条目：
+
+- `recommendations/plugins.md` —— 35+ Claude Code 插件（从 `~/.claude/settings.json` 精选）每条一行"为什么用"
+- `recommendations/marketplaces.md` —— superpowers、minimax-skills、garden-skills、ui-ux-pro-max-skill 等
+- `recommendations/mcp-servers.md` —— chrome-devtools、microsoft-docs、sourcegraph 等
+- `recommendations/cli-tools.md` —— uv、gh、ripgrep、fd 等
+- `recommendations/ui-design-tools.md` —— npm/npx 安装的 UI / 动画 / 设计工具（按你新加的需求扩展范围）
+- `recommendations/animation-tools.md` —— GSAP、Framer Motion、Lottie 工具链等
+
+## Tooling
+
+*（空——将在 Phase 6 填充）*
+
+预计条目：
+
+- `tooling/python-uv-ruff/` —— `pyproject.template.toml` + `ruff.template.toml` + README 带 **agent 可直接执行的安装命令**
+- `tooling/node-nvm/` —— Node 工具链 bootstrap，**agent 可直接执行的安装命令**
+- `tooling/permissions-allowlist/` —— 来自真实项目 `settings.local.json` 的常见 `Bash(...)` 白名单
+
+## Templates
+
+*（空——将在 Phase 7 填充）*
+
+预计条目：
+
+- `templates/research-package-py/` —— 基于 `liulian-python` / `AI_Mur4Cast` 模式的完整脚手架
+- `templates/personal-cite-static/` —— 基于 `jajupmochi.github.io`（HTML/CSS/JS、双语文档、i18n）
+
+## Setup
+
+*（空——将在 Phase 8 填充）*
+
+预计条目：
+
+- `setup/init-claude-config/SKILL.md` —— 安装 / scaffold 技能。询问用户：项目类型、双语策略、主语言、应用哪些 rules / hooks / skills / templates。然后从库里组合出项目的 `CLAUDE.md`、`.claude/settings.json` 和初始 `.claude/skills/`。

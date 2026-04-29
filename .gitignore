@@ -1,0 +1,36 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*~
+
+# Claude Code local state (do not commit)
+.claude/settings.local.json
+.claude/projects/
+.claude/cache/
+.claude/sessions/
+
+# Remember plugin scratch
+.remember/
+
+# Logs
+*.log
+
+# Local-only — never commit
+CLAUDE.local.md
+
+# Python (in case templates are exercised in-repo)
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.venv/
+
+# Node (in case templates are exercised in-repo)
+node_modules/
+.npm/
