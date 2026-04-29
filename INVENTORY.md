@@ -50,12 +50,14 @@ Anticipated entries:
 
 ## Hooks
 
-*(empty — to be populated in Phase 3)*
+✅ Populated in P3 (2026-04-29). 2 hooks + index README.
 
-Anticipated entries:
+| Hook | Event | Matcher | Context | One-line |
+|---|---|---|---|---|
+| [`ruff-format-on-edit`](hooks/ruff-format-on-edit/README.md) | `PostToolUse` | `Write\|Edit` | research-pkg / any Python | Auto-format Python files with ruff after Claude edits |
+| [`jq-validate-json`](hooks/jq-validate-json/README.md) | `PostToolUse` | `Write\|Edit` | static-site / JSON-config | Block next tool call if Claude wrote invalid JSON to configured paths |
 
-- `hooks/ruff-format-on-edit/` — `PostToolUse:Write|Edit` hook formatting Python files. Standardizes `uv run` / `uv tool run` / `uvx` variants seen across user projects.
-- `hooks/jq-validate-json/` — `PostToolUse:Write|Edit` hook validating JSON files (i18n parity, config integrity).
+See [`hooks/README.md`](hooks/README.md) for install instructions.
 
 ## Recommendations
 

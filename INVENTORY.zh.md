@@ -50,12 +50,14 @@
 
 ## Hooks
 
-*（空——将在 Phase 3 填充）*
+✅ 已在 P3 填充（2026-04-29）。2 个钩子 + 索引 README。
 
-预计条目：
+| 钩子 | Event | Matcher | Context | 一句话 |
+|---|---|---|---|---|
+| [`ruff-format-on-edit`](hooks/ruff-format-on-edit/README.md) | `PostToolUse` | `Write\|Edit` | research-pkg / 任何 Python 项目 | Claude 编辑 `*.py` 后用 ruff 自动格式化 |
+| [`jq-validate-json`](hooks/jq-validate-json/README.md) | `PostToolUse` | `Write\|Edit` | static-site / JSON 配置项目 | Claude 写入指定路径下无效 JSON 时拦截下次工具调用 |
 
-- `hooks/ruff-format-on-edit/` —— `PostToolUse:Write|Edit` 钩子，给 Python 文件做格式化。统一各项目里 `uv run` / `uv tool run` / `uvx` 三种写法。
-- `hooks/jq-validate-json/` —— `PostToolUse:Write|Edit` 钩子，校验 JSON 文件有效性（i18n 一致性、配置完整性）。
+详见 [`hooks/README.md`](hooks/README.md)（安装方式）。
 
 ## Recommendations
 

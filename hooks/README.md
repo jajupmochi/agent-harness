@@ -1,0 +1,39 @@
+# Hooks
+
+> Reusable hook recipes — deterministic shell commands that run on Claude Code lifecycle events. Drop the `settings.snippet.json` of each hook into a project's `.claude/settings.json` to enable.
+
+## Master TOC
+
+- [How to install a hook](#how-to-install-a-hook)
+- [Hook index](#hook-index)
+- [Adding a new hook](#adding-a-new-hook)
+
+## How to install a hook
+
+In a project's `.claude/settings.json`, merge the hook's `settings.snippet.json` under the `hooks` key. If the project has no settings.json yet, the snippet IS the file.
+
+For merging into an existing settings.json:
+
+```bash
+# from project root, given <hook-name>:
+jq -s '.[0] * .[1]' .claude/settings.json hooks/<hook-name>/settings.snippet.json > .claude/settings.json.new && mv .claude/settings.json.new .claude/settings.json
+```
+
+Verify the merge with `cat .claude/settings.json | jq .` (any error → fix syntax before continuing).
+
+## Hook index
+
+| Hook | Event | Matcher | Context | Why |
+|---|---|---|---|---|
+| [`ruff-format-on-edit`](ruff-format-on-edit/README.md) | `PostToolUse` | `Write\|Edit` | research-pkg / any Python project | Auto-format Python files after Claude edits them |
+| [`jq-validate-json`](jq-validate-json/README.md) | `PostToolUse` | `Write\|Edit` | static-site (i18n) / any JSON-config project | Block next tool call if Claude wrote invalid JSON to selected paths |
+
+## Adding a new hook
+
+See [`docs/CONTRIBUTING.md`](../docs/CONTRIBUTING.md) §"Adding a hook". Each hook lives under `hooks/<kebab-name>/` with:
+
+- `README.md` — what it does, which event/matcher, install steps, gotchas, variants
+- `settings.snippet.json` — drop-in JSON to merge into a project's `.claude/settings.json`
+- `verify.sh` (optional) — script to test the hook manually
+
+Hooks are sensitive — pipe-test the raw command first, then wrap in JSON. The `update-config` skill (Anthropic-official) has the canonical hook construction flow including pipe-test → JSON-wrap → live-proof.
