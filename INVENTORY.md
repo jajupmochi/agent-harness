@@ -21,19 +21,21 @@
 
 ## Rules
 
-*(empty — to be populated in Phase 2)*
+✅ Populated in P2 (2026-04-29). 9 rules + index README.
 
-Anticipated entries (distilled from `~/.claude/CLAUDE.md`):
+| Rule | Scope | One-line |
+|---|---|---|
+| [`chinese-output`](rules/chinese-output/RULE.md) | personal | Final user-facing output in Chinese; intermediate stays English |
+| [`pre-edit-confirmation`](rules/pre-edit-confirmation/RULE.md) | universal | List exact targets + 1-line plan + wait for explicit "go" before any Edit / Write |
+| [`phased-planning`](rules/phased-planning/RULE.md) | universal | Break tasks (3+ files OR > ~5 tool calls OR multi-step) into numbered phases with per-phase pause |
+| [`plugin-preflight`](rules/plugin-preflight/RULE.md) | universal | Verify plugin / skill / command is installed AND not deprecated before invoking |
+| [`ui-iteration-loop`](rules/ui-iteration-loop/RULE.md) | ui-project | Autonomous 8-iteration UI redesign loop with chrome-devtools screenshots and 4-axis self-critique |
+| [`output-brevity`](rules/output-brevity/RULE.md) | personal | No end-of-batch recap, don't echo tool output, prefer Edit over Write |
+| [`tool-proactivity`](rules/tool-proactivity/RULE.md) | personal | Installed plugin / skill / MCP fires without asking when matched (with explicit-approval exceptions) |
+| [`no-reread-files`](rules/no-reread-files/RULE.md) | personal | Trust your in-session memory of file contents; re-read only on actual change |
+| [`bilingual-docs`](rules/bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` convention (consumer-side opt-in via `setup/init-claude-config`) |
 
-- `chinese-output` — final user-facing output in Chinese; intermediate stays English
-- `pre-edit-confirmation` — list exact targets + 1-line plan + wait for explicit "go" before any Edit / Write
-- `phased-planning` — break medium / large tasks (3+ files OR > ~5 tool calls OR multi-step) into numbered phases with deliverables
-- `plugin-preflight` — verify plugin / skill / command is installed AND not deprecated before invoking
-- `ui-iteration-loop` — autonomous 8-iteration UI redesign loop with chrome-devtools screenshots and 4-axis self-critique
-- `output-brevity` — no end-of-batch recap, don't echo tool output, don't re-read the same file, prefer Edit over Write
-- `tool-proactivity` — installed plugin / skill / MCP fires without asking when matched (with explicit-approval exceptions)
-- `no-reread-files` — trust your in-session memory of file contents; re-read only on actual change
-- `bilingual-docs` — `NAME.md` + `NAME.zh.md` convention (consumer-side opt-in via `setup/init-claude-config`)
+See [`rules/README.md`](rules/README.md) for usage details and scope-tag definitions.
 
 ## Skills
 

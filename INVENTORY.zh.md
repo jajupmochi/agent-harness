@@ -21,19 +21,21 @@
 
 ## Rules
 
-*（空——将在 Phase 2 填充）*
+✅ 已在 P2 填充（2026-04-29）。9 条规则 + 索引 README。
 
-预计条目（从 `~/.claude/CLAUDE.md` 蒸馏）：
+| 规则 | Scope | 一句话 |
+|---|---|---|
+| [`chinese-output`](rules/chinese-output/RULE.md) | personal | 最终面向用户的输出用中文；中间过程保持英文 |
+| [`pre-edit-confirmation`](rules/pre-edit-confirmation/RULE.md) | universal | 任何 Edit / Write 前列出精确目标 + 一句话计划，等用户 explicit "go" |
+| [`phased-planning`](rules/phased-planning/RULE.md) | universal | 中大任务（3+ 文件 / > ~5 次工具调用 / 多步骤）分阶段编号，每阶段后暂停 |
+| [`plugin-preflight`](rules/plugin-preflight/RULE.md) | universal | 调用插件 / skill / 命令前先验证已安装且未弃用 |
+| [`ui-iteration-loop`](rules/ui-iteration-loop/RULE.md) | ui-project | 自动 8 轮 UI 迭代循环，配 chrome-devtools 截图与四轴自评 |
+| [`output-brevity`](rules/output-brevity/RULE.md) | personal | 不在末尾复述、不回显工具输出、优先 Edit 而非 Write |
+| [`tool-proactivity`](rules/tool-proactivity/RULE.md) | personal | 已安装的插件 / skill / MCP 匹配场景时主动调用（含若干"必须先确认"的例外） |
+| [`no-reread-files`](rules/no-reread-files/RULE.md) | personal | 信任本 session 内对文件内容的记忆；除非真的变了不再重读 |
+| [`bilingual-docs`](rules/bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` 双语文档约定（消费方 opt-in via `setup/init-claude-config`） |
 
-- `chinese-output` —— 最终面向用户的输出用中文；中间过程保持英文
-- `pre-edit-confirmation` —— 在任何 Edit / Write 之前，先列出精确目标 + 一句话计划，等用户 explicit "go"
-- `phased-planning` —— 中大任务（3+ 文件 / > ~5 次工具调用 / 多步骤）分阶段编号，列出每阶段交付物
-- `plugin-preflight` —— 调用插件 / skill / 命令前先验证已安装且未弃用
-- `ui-iteration-loop` —— 自动 8 轮 UI 迭代循环，配 chrome-devtools 截图与四轴自评
-- `output-brevity` —— 不在末尾复述、不回显工具输出、不重读同一文件、优先 Edit 而非 Write
-- `tool-proactivity` —— 已安装的插件 / skill / MCP 匹配场景时主动调用（含若干"必须先确认"的例外）
-- `no-reread-files` —— 信任你这段 session 内对文件内容的记忆；除非真的变了不再重读
-- `bilingual-docs` —— `NAME.md` + `NAME.zh.md` 的双语文档约定（消费方按需启用，via `setup/init-claude-config`）
+详见 [`rules/README.md`](rules/README.md)（用法说明 + scope 标签定义）。
 
 ## Skills
 

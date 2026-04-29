@@ -1,0 +1,53 @@
+# Rules
+
+> Workflow conventions that shape Claude's behavior in a downstream project. Each rule has a long-form `RULE.md` (rationale, examples, exceptions) and a short `snippet.md` (drop-in for `CLAUDE.md` via `@import`).
+
+## Master TOC
+
+- [How to use](#how-to-use)
+- [Rule index](#rule-index)
+- [Scope tags](#scope-tags)
+- [Adding a new rule](#adding-a-new-rule)
+
+## How to use
+
+In a downstream project's `CLAUDE.md`, add `@<path-to-rule>/snippet.md` lines for each rule that applies. Three paths:
+
+- **Raw URL** — `@https://raw.githubusercontent.com/jajupmochi/claude-config/main/rules/<name>/snippet.md`
+- **Local clone** — `@~/.claude/claude-config/rules/<name>/snippet.md`
+- **Plugin** (P10+) — `/plugin install jajupmochi/claude-config` exposes these via the setup skill.
+
+The `setup/init-claude-config` skill (P8) does this composition automatically based on project type.
+
+## Rule index
+
+| Rule | Scope | When applies |
+|---|---|---|
+| [`chinese-output`](chinese-output/RULE.md) | personal | User's final-output language preference is Chinese |
+| [`pre-edit-confirmation`](pre-edit-confirmation/RULE.md) | universal | Before any Edit / Write / NotebookEdit / MultiEdit |
+| [`phased-planning`](phased-planning/RULE.md) | universal | Tasks touching 3+ files / >5 tool calls / multi-step |
+| [`plugin-preflight`](plugin-preflight/RULE.md) | universal | Before invoking unfamiliar plugin / MCP / skill |
+| [`ui-iteration-loop`](ui-iteration-loop/RULE.md) | ui-project | When user provides a visual reference for UI work |
+| [`output-brevity`](output-brevity/RULE.md) | personal | All output — keep terse, no end-of-batch recap |
+| [`tool-proactivity`](tool-proactivity/RULE.md) | personal | Installed skills / plugins fire without asking |
+| [`no-reread-files`](no-reread-files/RULE.md) | personal | Trust in-session memory of file contents |
+| [`bilingual-docs`](bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` convention for human-facing docs |
+
+## Scope tags
+
+| Tag | Meaning |
+|---|---|
+| `universal` | Apply to every project |
+| `personal` | A user-preference rule. Apply if the user opts in at scaffold time |
+| `ui-project` | Apply only to frontend / UI work |
+| `optional` | Don't auto-apply; the setup skill asks per project |
+
+The `setup/init-claude-config` skill (P8) reads each rule's frontmatter `scope:` and offers it based on project type.
+
+## Adding a new rule
+
+See [`docs/CONTRIBUTING.md`](../docs/CONTRIBUTING.md) §"Adding a rule". Summary:
+
+1. Create `rules/<kebab-name>/`
+2. Add `RULE.md` (frontmatter + body) and `snippet.md` (drop-in for `CLAUDE.md`)
+3. Update `INVENTORY.md` and `INVENTORY.zh.md` in the same edit batch
