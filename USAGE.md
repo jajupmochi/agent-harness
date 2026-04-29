@@ -18,26 +18,68 @@
 
 ## 0. Install claude-config (once per machine)
 
-Pick one of three methods. **Recommended for now: local clone (B).**
+Pick one of **6 methods**. Quick guide:
 
-### A) Plugin install (Phase 10+; spec stabilizing)
+| Method | Best for | Network at session start | Update mechanism |
+|---|---|---|---|
+| **A) npx** ⭐ recommended | Fastest one-liner from a terminal | none | `npx ...` again |
+| **B) `/plugin` interactive** | Browse-and-install from inside Claude Code | partial | `/plugin update` |
+| **C) `/plugin install` direct** | If you already know the plugin name | partial | `/plugin update` |
+| **D) Local `git clone`** | Manual control / offline-friendly | none | `git pull` |
+| **E) Raw URL `@imports`** | No install at all — just URLs in CLAUDE.md | required | automatic (live) |
+| **F) Copy-paste prompt** | Hands-off — let CC do everything | none | re-run prompt |
+
+### A) `npx` (recommended)
+
+The fastest path. Zero config:
 
 ```bash
-# In Claude Code:
+npx github:jajupmochi/claude-config
+```
+
+This runs [`bin/install.js`](https://github.com/jajupmochi/claude-config/blob/main/bin/install.js) which:
+1. Clones the lib to `~/.claude/claude-config/`
+2. Symlinks the `init-claude-config` skill into `~/.claude/skills/` so `/init-claude-config` becomes available globally
+3. Prints next steps
+
+To update later: `npx github:jajupmochi/claude-config` again (it detects existing install and prints `git pull` instructions).
+
+### B) `/plugin` interactive (inside Claude Code)
+
+Browse the plugin marketplace and pick claude-config:
+
+```
+/plugin marketplace add jajupmochi/claude-config
+/plugin
+# Browse and install claude-config
+```
+
+After install, `/init-claude-config` is available in any project.
+
+### C) `/plugin install` direct (inside Claude Code)
+
+If you already know the plugin name:
+
+```
 /plugin install jajupmochi/claude-config
 ```
 
-After install, the `/init-claude-config` slash command becomes available in any project.
+(Works once the plugin spec stabilizes — the manifest at [`.claude-plugin/plugin.json`](https://github.com/jajupmochi/claude-config/blob/main/.claude-plugin/plugin.json) is ready.)
 
-### B) Local clone (canonical for now)
+### D) Local `git clone` (canonical)
+
+For full manual control:
 
 ```bash
 git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-config
+
+# Symlink the init skill so /init-claude-config is available globally:
+ln -s ~/.claude/claude-config/setup/init-claude-config ~/.claude/skills/init-claude-config
 ```
 
-The lib lives under `~/.claude/claude-config/`. Update with `git pull` from that directory.
+Update with `cd ~/.claude/claude-config && git pull`.
 
-### C) Raw URL imports (no install at all)
+### E) Raw URL `@imports` (no install)
 
 You don't install anything. Instead, your project's `CLAUDE.md` has `@import` lines pointing at GitHub raw URLs:
 
@@ -45,7 +87,27 @@ You don't install anything. Instead, your project's `CLAUDE.md` has `@import` li
 @https://raw.githubusercontent.com/jajupmochi/claude-config/main/rules/pre-edit-confirmation/snippet.md
 ```
 
-Always live, but requires network on session start.
+Always live, but requires network on session start. The `/init-claude-config` slash command won't be available globally — you'd manually compose `CLAUDE.md` rather than using the scaffold skill.
+
+### F) Copy-paste prompt to Claude Code
+
+Open Claude Code in any directory (no install needed). Paste this prompt verbatim and Claude will execute the install for you:
+
+> Please install claude-config from https://github.com/jajupmochi/claude-config:
+>
+> 1. Run: `git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-config`
+> 2. Run: `mkdir -p ~/.claude/skills && ln -s ~/.claude/claude-config/setup/init-claude-config ~/.claude/skills/init-claude-config`
+> 3. Confirm done and tell me to run `/init-claude-config` in my project.
+
+Or in Chinese:
+
+> 请帮我从 https://github.com/jajupmochi/claude-config 安装 claude-config：
+>
+> 1. 跑：`git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-config`
+> 2. 跑：`mkdir -p ~/.claude/skills && ln -s ~/.claude/claude-config/setup/init-claude-config ~/.claude/skills/init-claude-config`
+> 3. 确认完成后告诉我在项目里跑 `/init-claude-config`。
+
+This works because Claude Code can execute shell commands and reads the GitHub URL from the prompt.
 
 ---
 

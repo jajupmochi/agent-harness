@@ -4,7 +4,7 @@
 
 > **语言：** [English](README.md) | 中文
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![GitHub](https://img.shields.io/badge/GitHub-jajupmochi%2Fclaude--config-181717?logo=github)](https://github.com/jajupmochi/claude-config)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![GitHub](https://img.shields.io/badge/GitHub-jajupmochi%2Fclaude--config-181717?logo=github)](https://github.com/jajupmochi/claude-config) [![Privacy Scan](https://github.com/jajupmochi/claude-config/actions/workflows/privacy-scan.yml/badge.svg)](https://github.com/jajupmochi/claude-config/actions/workflows/privacy-scan.yml)
 
 ## Master TOC
 
@@ -25,20 +25,13 @@
 
 ## TL;DR
 
-三种安装方式选一：
+最快的安装方式 —— **`npx`（不用 clone，不用重启 Claude Code）**：
 
 ```bash
-# A) Plugin（最原生——规范稳定后）
-/plugin install jajupmochi/claude-config
-
-# B) 本地 clone（当前推荐——快、离线可用）
-git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-config
-
-# C) Raw URL（完全不装——直接在 CLAUDE.md 里 @ import）
-# 见下方"快速上手"
+npx github:jajupmochi/claude-config
 ```
 
-然后在任何新项目根目录里：
+然后在任何项目根目录打开 Claude Code 跑：
 
 ```
 /init-claude-config
@@ -46,7 +39,7 @@ git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-confi
 
 回答 6 个问题 → 项目按类型 scaffold 出相应规则 + 钩子 + 技能 + 工具链。
 
-详细操作走查见 [USAGE.zh.md](USAGE.zh.md)。
+**6 种安装方式**（npx / 交互式 `/plugin` / 直接 `/plugin install` / 本地 clone / raw URL @imports / 复制粘贴提示词给 CC）—— 见 **[USAGE.zh.md §0](USAGE.zh.md#0-安装-claude-config每台机器一次)** 看所有路径。
 
 ## 这是什么
 

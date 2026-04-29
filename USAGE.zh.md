@@ -18,26 +18,68 @@
 
 ## 0. 安装 claude-config（每台机器一次）
 
-三种方式选一种。**当前推荐：B（本地 clone）。**
+**6 种方式**选一。快速对比：
 
-### A) 作为 Plugin 安装（Phase 10+；规范仍在稳定中）
+| 方式 | 最适合 | session 启动联网 | 更新机制 |
+|---|---|---|---|
+| **A) npx** ⭐ 推荐 | 终端一行命令最快 | 不需要 | 再跑一次 `npx ...` |
+| **B) `/plugin` 交互** | 在 Claude Code 里浏览安装 | 部分 | `/plugin update` |
+| **C) `/plugin install` 直接** | 已知插件名 | 部分 | `/plugin update` |
+| **D) 本地 `git clone`** | 完全手动控制 / 离线友好 | 不需要 | `git pull` |
+| **E) Raw URL `@imports`** | 完全不装——CLAUDE.md 里直接放 URL | 需要 | 自动（live） |
+| **F) 复制粘贴提示词** | 最省心——让 CC 帮你装 | 不需要 | 再跑一次提示词 |
+
+### A) `npx`（推荐）
+
+最快路径，零配置：
 
 ```bash
-# 在 Claude Code 里：
+npx github:jajupmochi/claude-config
+```
+
+这会跑 [`bin/install.js`](https://github.com/jajupmochi/claude-config/blob/main/bin/install.js)：
+1. 把库 clone 到 `~/.claude/claude-config/`
+2. 把 `init-claude-config` 技能软链到 `~/.claude/skills/`，让 `/init-claude-config` 在任何项目都可用
+3. 打印下一步
+
+后续更新：再跑一次 `npx github:jajupmochi/claude-config`（它会检测已有安装并打印 `git pull` 提示）。
+
+### B) `/plugin` 交互（在 Claude Code 里）
+
+浏览插件 marketplace 并选择 claude-config：
+
+```
+/plugin marketplace add jajupmochi/claude-config
+/plugin
+# 浏览并安装 claude-config
+```
+
+安装后 `/init-claude-config` 在任何项目里可用。
+
+### C) `/plugin install` 直接（在 Claude Code 里）
+
+如果已知插件名：
+
+```
 /plugin install jajupmochi/claude-config
 ```
 
-安装后 `/init-claude-config` 斜杠命令在任何项目里都能用。
+（plugin 规范稳定后能用——manifest 已就绪在 [`.claude-plugin/plugin.json`](https://github.com/jajupmochi/claude-config/blob/main/.claude-plugin/plugin.json)。）
 
-### B) 本地 clone（当前推荐）
+### D) 本地 `git clone`（标准方式）
+
+完全手动控制：
 
 ```bash
 git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-config
+
+# 软链 init 技能让 /init-claude-config 全局可用：
+ln -s ~/.claude/claude-config/setup/init-claude-config ~/.claude/skills/init-claude-config
 ```
 
-库放在 `~/.claude/claude-config/`。`cd` 进去 `git pull` 即可更新。
+更新：`cd ~/.claude/claude-config && git pull`。
 
-### C) Raw URL 引用（完全不安装）
+### E) Raw URL `@imports`（不装）
 
 什么都不装。项目 `CLAUDE.md` 用 `@import` 直接指向 GitHub raw URL：
 
@@ -45,7 +87,27 @@ git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-confi
 @https://raw.githubusercontent.com/jajupmochi/claude-config/main/rules/pre-edit-confirmation/snippet.md
 ```
 
-永远是最新的，但 session 启动需要联网。
+永远是最新的，但 session 启动需要联网。`/init-claude-config` 斜杠命令也不会全局可用——需要手动组合 `CLAUDE.md`，不能用 scaffold 技能。
+
+### F) 复制粘贴提示词给 Claude Code
+
+在任何目录打开 Claude Code（不用先装任何东西）。把这段提示词原样粘贴进去，Claude 会帮你执行安装：
+
+> 请帮我从 https://github.com/jajupmochi/claude-config 安装 claude-config：
+>
+> 1. 跑：`git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-config`
+> 2. 跑：`mkdir -p ~/.claude/skills && ln -s ~/.claude/claude-config/setup/init-claude-config ~/.claude/skills/init-claude-config`
+> 3. 确认完成后告诉我在项目里跑 `/init-claude-config`。
+
+或英文：
+
+> Please install claude-config from https://github.com/jajupmochi/claude-config:
+>
+> 1. Run: `git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-config`
+> 2. Run: `mkdir -p ~/.claude/skills && ln -s ~/.claude/claude-config/setup/init-claude-config ~/.claude/skills/init-claude-config`
+> 3. Confirm done and tell me to run `/init-claude-config` in my project.
+
+这种方式可行，因为 Claude Code 能执行 shell 命令、能读取提示词里的 GitHub URL。
 
 ---
 

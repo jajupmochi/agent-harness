@@ -17,19 +17,19 @@ Scan and redact private content from a file before publishing it.
 
 | Pattern | Action |
 |---|---|
-| `linlin` (or other system usernames) | Remove |
-| `/home/<user>/`, `/media/<user>/`, `/mnt/<uuid>/` | Replace with `~` (relative) or `<workspace>/` |
-| Token-shaped strings (`sk-`, `ghp_`, `gho_`, `github_pat_`) | **STOP and warn the user** — refuse to write the file with secrets present |
+| System usernames (configured per project) | Remove |
+| Absolute paths (`/home/<user>/`, `/media/<user>/`, `/mnt/<uuid>/`) | Replace with `~` (relative) or `<workspace>/` |
+| Token-shaped strings (matching `sk-…`, `ghp_…`, `gho_…`, `github_pat_…` patterns) | **STOP and warn the user** — refuse to write the file with secrets present |
 | Email addresses (`<user>@<domain>`) | Remove or replace with `<redacted-email>` |
 | Project-specific codenames | Per project's redaction map (defined in `docs/CONTRIBUTING.md` of the project) |
 
 ## Steps
 
 1. **Read** the file
-2. **Multi-pattern grep** to find matches:
+2. **Multi-pattern grep** to find matches (adjust `<your-username>` per project):
 
    ```bash
-   grep -nE 'linlin|/home/|/media/|/mnt/|@gmail|@hotmail|sk-[A-Za-z]|ghp_[A-Za-z0-9]|gho_|github_pat_' <file>
+   grep -nE '<your-username>|/home/|/media/|/mnt/|@gmail|@hotmail|sk-[A-Za-z]|ghp_[A-Za-z0-9]|gho_|github_pat_' <file>
    ```
 
 3. **Per match**, show the line and proposed replacement
@@ -64,20 +64,18 @@ Scan and redact private content from a file before publishing it.
 ## Example
 
 ```
-$ /privacy-redact docs/DISCOVERY.md
+$ /privacy-redact docs/DRAFT.md
 
-Found 12 codename references (liulian-python, swiss-river-network-benchmark, AI_Mur4Cast, jajupmochi.github.io, local_research_agent, local_translator, antigravity_playground/relax_app).
+Found N codename references that match the project's redaction map.
 
-Proposed replacements (per redaction map):
-- liulian-python → <research-pkg-A>
-- swiss-river-network-benchmark → <research-pkg-B>
-- AI_Mur4Cast → <research-pkg-C>
-- jajupmochi.github.io → <personal-site>
-- local_research_agent → <frontend-react-app>
-- local_translator → <frontend-vue-app>
-- antigravity_playground/relax_app → <electron-app>
+Proposed replacements (per redaction map in docs/CONTRIBUTING.md):
+- <internal-codename-A> → <generic-placeholder-A>
+- <internal-codename-B> → <generic-placeholder-B>
+  ...
 
 No system usernames, absolute paths, or token-shaped strings found.
 
-Apply all 12 replacements? (y/n)
+Apply all N replacements? (y/n)
 ```
+
+(The actual codenames and placeholders come from each consumer project's redaction map — this skill is project-agnostic.)

@@ -4,7 +4,7 @@
 
 > **Language:** English | [中文](README.zh.md)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![GitHub](https://img.shields.io/badge/GitHub-jajupmochi%2Fclaude--config-181717?logo=github)](https://github.com/jajupmochi/claude-config)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![GitHub](https://img.shields.io/badge/GitHub-jajupmochi%2Fclaude--config-181717?logo=github)](https://github.com/jajupmochi/claude-config) [![Privacy Scan](https://github.com/jajupmochi/claude-config/actions/workflows/privacy-scan.yml/badge.svg)](https://github.com/jajupmochi/claude-config/actions/workflows/privacy-scan.yml)
 
 ## Master TOC
 
@@ -25,20 +25,13 @@
 
 ## TL;DR
 
-Pick **one** install method:
+Quickest install — **`npx` (no clone, no Claude Code restart needed)**:
 
 ```bash
-# A) Plugin (most native — once spec stabilizes)
-/plugin install jajupmochi/claude-config
-
-# B) Local clone (recommended today — fast, offline)
-git clone https://github.com/jajupmochi/claude-config.git ~/.claude/claude-config
-
-# C) Raw URL (no install at all — just add @imports in your CLAUDE.md)
-# See "Quick Start" below
+npx github:jajupmochi/claude-config
 ```
 
-Then in any new project root:
+Then in any project root, open Claude Code and run:
 
 ```
 /init-claude-config
@@ -46,7 +39,7 @@ Then in any new project root:
 
 Answer 6 questions → project gets scaffolded with the right rules + hooks + skills + tooling for its type.
 
-Detailed walkthroughs: see [USAGE.md](USAGE.md).
+**6 install methods** (npx / interactive `/plugin` / direct `/plugin install` / local clone / raw URL @imports / copy-paste prompt to CC) — see **[USAGE.md §0](USAGE.md#0-install-claude-config-once-per-machine)** for all paths.
 
 ## What this is
 

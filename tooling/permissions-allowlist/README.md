@@ -38,7 +38,7 @@ Common read-only or low-risk Bash patterns extracted from the author's real `set
 - **`git add *`** — covers `git add` for any file (still requires a separate prompt for sensitive paths via your project's exclusion list)
 - **`echo "exit=$?"`** — for shell return-code checks
 - **`Skill(update-config)`** — the hooks construction skill is allowlisted (canonical hook authoring)
-- **`Read(//home/<your-user>/.claude/**)`** — equivalent for your home; replace with your username
+- **`Read(//home/<your-user>/.claude/**)`** — equivalent for your home; replace `<your-user>` with your actual system username
 
 ## What's intentionally excluded
 

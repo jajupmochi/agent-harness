@@ -1,0 +1,152 @@
+name: Privacy / Secret Scan
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    # Weekly safety net — catches drift even with no commits
+    - cron: '0 6 * * 1'  # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: Gitleaks (secret scanning)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history so gitleaks can scan past commits
+
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Default config catches: AWS keys, GitHub tokens, GCP keys,
+        # Stripe, Slack, Twilio, OpenAI keys, generic api_key=/secret=/password=, etc.
+
+  custom-privacy-check:
+    name: Custom privacy patterns
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: System usernames
+        run: |
+          echo "Scanning for lowercase 'linlin' (system username — case-sensitive; capitalized 'Linlin' in author attribution is allowed)..."
+          if grep -rnE '\blinlin\b' \
+              --include='*.md' --include='*.json' --include='*.yml' --include='*.yaml' \
+              --include='*.toml' --include='*.html' --include='*.js' \
+              --exclude-dir='.git' --exclude-dir='node_modules' --exclude='privacy-scan.yml' . ; then
+            echo "::error::Found system username 'linlin' in tracked files. Use placeholder like '<your-user>' or generic phrasing."
+            exit 1
+          fi
+          echo "✓ No system usernames found"
+
+      - name: Absolute paths
+        run: |
+          echo "Scanning for absolute paths revealing user-specific install locations..."
+          if grep -rnE '/home/[a-z0-9_-]+/|/media/[a-z0-9_-]+/|/mnt/[a-f0-9-]+/' \
+              --include='*.md' --include='*.json' --include='*.yml' --include='*.yaml' \
+              --include='*.toml' --include='*.html' --include='*.js' \
+              --exclude-dir='.git' --exclude-dir='node_modules' --exclude='privacy-scan.yml' . ; then
+            echo "::error::Found absolute path. Replace with ~ or <workspace>/ placeholder."
+            exit 1
+          fi
+          echo "✓ No absolute paths found"
+
+      - name: Token-shaped strings
+        run: |
+          echo "Scanning for token-shaped strings (extra layer beyond gitleaks)..."
+          # Use $20+ to avoid false positives on short examples like "sk-abc"
+          if grep -rnE '(sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}|gho_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{40,}|xoxb-[0-9]{10,}|xoxp-[0-9]{10,})' \
+              --include='*.md' --include='*.json' --include='*.yml' --include='*.yaml' \
+              --include='*.toml' --include='*.html' \
+              --exclude-dir='.git' --exclude-dir='node_modules' --exclude='privacy-scan.yml' . ; then
+            echo "::error::Found token-shaped string. If it's a real secret, ROTATE IT IMMEDIATELY. Otherwise rephrase to avoid the regex."
+            exit 1
+          fi
+          echo "✓ No token-shaped strings found"
+
+      - name: Real email addresses
+        run: |
+          echo "Scanning for real email addresses (excluding placeholders like you@example.com)..."
+          # Major personal-mail providers — flag for redaction. example.com is allowed.
+          if grep -rnE '\b[A-Za-z0-9._%+-]+@(gmail|hotmail|outlook|yahoo|qq|163|live|protonmail)\.(com|cn|org)\b' \
+              --include='*.md' --include='*.json' --include='*.yml' --include='*.yaml' \
+              --include='*.toml' --include='*.html' \
+              --exclude-dir='.git' --exclude-dir='node_modules' --exclude='privacy-scan.yml' . ; then
+            echo "::error::Found real email address. Replace with placeholder (you@example.com) or remove."
+            exit 1
+          fi
+          echo "✓ No real email addresses found"
+
+      - name: Unredacted project codenames in content modules
+        run: |
+          echo "Scanning content modules (rules/, skills/, hooks/, tooling/, templates/, recommendations/)..."
+          # README.md / USAGE.md / docs/ may legitimately mention codenames as walkthrough examples or origin attribution.
+          # Content modules must use placeholders instead.
+          violations=0
+          # Codename strings constructed at runtime to avoid this workflow file matching itself.
+          codenames=$(printf '%s\n' \
+            'liulian-python' \
+            'swiss-river-network-benchmark' \
+            'AI_Mur4Cast' \
+            'local_research_agent' \
+            'local_translator' \
+            'antigravity_playground' \
+            'relax_app')
+          while IFS= read -r codename; do
+            if grep -rnE "\b${codename}\b" \
+                rules/ skills/ hooks/ tooling/ templates/ recommendations/ \
+                --exclude='privacy-scan.yml' 2>/dev/null; then
+              echo "::warning::Found unredacted codename '${codename}' in content modules"
+              violations=$((violations + 1))
+            fi
+          done <<< "$codenames"
+          if [ $violations -gt 0 ]; then
+            echo "::error::Codenames must be redacted to placeholders (<personal-site>, <research-pkg-A>, etc.) in published content modules. README/USAGE/docs are allowed to mention them."
+            exit 1
+          fi
+          echo "✓ No unredacted codenames in content modules"
+
+  json-validity:
+    name: JSON validity (settings + plugin manifest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: jq empty on every JSON
+        run: |
+          echo "Validating every tracked JSON file..."
+          set -e
+          while IFS= read -r f; do
+            jq empty "$f" || { echo "::error::Invalid JSON: $f"; exit 1; }
+          done < <(git ls-files '*.json')
+          echo "✓ All JSON valid"
+
+  summary:
+    name: All scans passed
+    runs-on: ubuntu-latest
+    needs: [gitleaks, custom-privacy-check, json-validity]
+    if: always()
+    steps:
+      - name: Aggregate result
+        run: |
+          if [ "${{ needs.gitleaks.result }}" = "success" ] \
+             && [ "${{ needs.custom-privacy-check.result }}" = "success" ] \
+             && [ "${{ needs.json-validity.result }}" = "success" ]; then
+            echo "✓ All privacy + validity scans passed"
+          else
+            echo "❌ Scan(s) failed — review the failed jobs above"
+            echo "  - gitleaks:             ${{ needs.gitleaks.result }}"
+            echo "  - custom-privacy-check: ${{ needs.custom-privacy-check.result }}"
+            echo "  - json-validity:        ${{ needs.json-validity.result }}"
+            exit 1
+          fi
