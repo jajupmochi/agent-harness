@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "<SITE_NAME>",
+    "description": "<DESCRIPTION>"
+  },
+  "hero": {
+    "title": "<SITE_NAME>",
+    "subtitle": "<DESCRIPTION>"
+  },
+  "about": {
+    "heading": "关于",
+    "body": "在这里写你的简介。"
+  },
+  "projects": {
+    "heading": "项目"
+  },
+  "publications": {
+    "heading": "发表"
+  },
+  "contact": {
+    "heading": "联系方式",
+    "body": "联系信息。"
+  },
+  "footer": {
+    "copyright": "© <AUTHOR_NAME>。",
+    "tagline": "用心打造。"
+  }
+}

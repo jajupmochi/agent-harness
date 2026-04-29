@@ -104,12 +104,14 @@ See [`tooling/README.md`](tooling/README.md) for usage.
 
 ## Templates
 
-*(empty — to be populated in Phase 7)*
+✅ Populated in P7 (2026-04-29). 2 project templates + index README.
 
-Anticipated entries:
+| Template | Project type | Includes |
+|---|---|---|
+| [research-package-py/](templates/research-package-py/TEMPLATE_README.md) | Python research pkg (uv + ruff + pytest) | CLAUDE.template.md, pyproject.template.toml (with research extras: torch/data/logging), .gitignore, .claude/settings.template.json (ruff format hook), .claude/skills/verify/ |
+| [personal-cite-static/](templates/personal-cite-static/TEMPLATE_README.md) | Static personal academic site (HTML/CSS/JS, i18n, bilingual) | CLAUDE.template.md (bilingual + visual-verification + iterative-round-file rules), index.template.html (i18n-aware), locales/{en,zh}.template.json, .gitignore, .claude/settings.template.json (jq JSON validity hook), .claude/skills/{preview,verify-visual,i18n-sync}/ |
 
-- `templates/research-package-py/` — full scaffold based on `liulian-python` / `AI_Mur4Cast` patterns
-- `templates/personal-cite-static/` — based on `jajupmochi.github.io` (HTML/CSS/JS, bilingual docs, i18n)
+See [`templates/README.md`](templates/README.md) for usage. The `setup/init-claude-config` skill (P8) does the substitution + composition automatically.
 
 ## Setup
 

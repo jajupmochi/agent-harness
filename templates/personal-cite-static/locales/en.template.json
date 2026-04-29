@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "<SITE_NAME>",
+    "description": "<DESCRIPTION>"
+  },
+  "hero": {
+    "title": "<SITE_NAME>",
+    "subtitle": "<DESCRIPTION>"
+  },
+  "about": {
+    "heading": "About",
+    "body": "Replace this with your bio."
+  },
+  "projects": {
+    "heading": "Projects"
+  },
+  "publications": {
+    "heading": "Publications"
+  },
+  "contact": {
+    "heading": "Contact",
+    "body": "Your contact info here."
+  },
+  "footer": {
+    "copyright": "© <AUTHOR_NAME>.",
+    "tagline": "Built with care."
+  }
+}

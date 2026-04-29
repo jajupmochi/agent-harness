@@ -104,12 +104,14 @@
 
 ## Templates
 
-*（空——将在 Phase 7 填充）*
+✅ 已在 P7 填充（2026-04-29）。2 个项目模板 + 索引 README。
 
-预计条目：
+| 模板 | 项目类型 | 包含 |
+|---|---|---|
+| [research-package-py/](templates/research-package-py/TEMPLATE_README.md) | Python 研究包（uv + ruff + pytest） | CLAUDE.template.md、pyproject.template.toml（含研究 extras：torch/data/logging）、.gitignore、.claude/settings.template.json（ruff 格式化钩子）、.claude/skills/verify/ |
+| [personal-cite-static/](templates/personal-cite-static/TEMPLATE_README.md) | 静态个人学术主页（HTML/CSS/JS、i18n、双语） | CLAUDE.template.md（双语 + 视觉验证 + 迭代 round 文件约定）、index.template.html（i18n）、locales/{en,zh}.template.json、.gitignore、.claude/settings.template.json（jq JSON 校验钩子）、.claude/skills/{preview,verify-visual,i18n-sync}/ |
 
-- `templates/research-package-py/` —— 基于 `liulian-python` / `AI_Mur4Cast` 模式的完整脚手架
-- `templates/personal-cite-static/` —— 基于 `jajupmochi.github.io`（HTML/CSS/JS、双语文档、i18n）
+详见 [`templates/README.md`](templates/README.md)。`setup/init-claude-config` 技能（P8）自动完成占位符替换与组合。
 
 ## Setup
 

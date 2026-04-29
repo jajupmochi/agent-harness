@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+
+# Tools cache
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# uv
+.uv-cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Research outputs (commonly large, project-local)
+artifacts/
+checkpoints/
+outputs/
+wandb/
+mlruns/
+ray_results/
+.ray/
+
+# Encrypted data
+data-encrypted/
+
+# Logs
+*.log
+
+# Claude Code local state (per-user, gitignored)
+.claude/settings.local.json
+.claude/projects/
+.claude/cache/
+.claude/sessions/
+CLAUDE.local.md
+
+# Remember plugin scratch
+.remember/

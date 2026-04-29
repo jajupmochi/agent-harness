@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*~
+
+# Logs
+*.log
+
+# Claude Code local state (per-user, gitignored)
+.claude/settings.local.json
+.claude/projects/
+.claude/cache/
+.claude/sessions/
+CLAUDE.local.md
+
+# Remember plugin scratch
+.remember/
+
+# Temporary preview / test files
+*.tmp.html
+*.bak
+
+# Local node_modules if any subproject (e.g. blog/) exists
+node_modules/

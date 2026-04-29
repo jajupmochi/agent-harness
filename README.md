@@ -72,7 +72,7 @@ Currently at **Phase 1 — foundation**. The 10-phase build plan:
 | P4 | General-purpose skills (verify, preview, long-running-tasks, verify-visual, privacy-redact) | done |
 | P5 | Recommendations (12 active files: CC plugins, marketplaces+skill-bundles, CLI tools, JS UI, JS animation+3D, JS build/test/style, JS state, web auditing, image/video/PDF, docs, ML/research, orchestra ML skills + 2 reference tables) — populated from reviewed `DISCOVERY.md` | done |
 | P6 | Tooling preferences with **agent-executable install steps** (python-uv-ruff, node-nvm, permissions-allowlist) | done |
-| P7 | Project templates (research-pkg-py, personal-cite-static) | pending |
+| P7 | Project templates (research-pkg-py, personal-cite-static) | done |
 | P8 | `setup/init-claude-config` install skill | pending |
 | P9 | Repo meta (LICENSE, meta-skills, GitHub publish) | pending |
 | P10 | Plugin packaging (optional) | pending |

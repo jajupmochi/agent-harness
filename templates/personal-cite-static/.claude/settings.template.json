@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath // empty' | { read -r f; case \"$f\" in */locales/*.json|*/data/*.json) err=$(jq empty \"$f\" 2>&1); [ -n \"$err\" ] && jq -n --arg f \"$f\" --arg err \"$err\" '{systemMessage: (\"Invalid JSON in \" + $f + \": \" + $err), decision: \"block\", reason: \"Fix JSON syntax before proceeding.\"}' ;; esac; true; }"
+          }
+        ]
+      }
+    ]
+  }
+}
