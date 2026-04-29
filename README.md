@@ -19,6 +19,7 @@
 - [Project templates](#project-templates)
 - [The setup skill `/init-claude-config`](#the-setup-skill-init-claude-config)
 - [For maintainers](#for-maintainers)
+- [Publishing to external directories](#publishing-to-external-directories)
 - [Build history](#build-history)
 - [Contributing](#contributing)
 - [License](#license)
@@ -226,22 +227,34 @@ To extend `claude-config` itself, four meta-skills under `.claude/skills/`:
 
 Plus [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) — formal spec for adding rules / skills / hooks / recommendations / tooling / templates, including the inventory-stay-in-sync requirement.
 
+## Publishing to external directories
+
+The repo is also being published to community directories so people can discover it. Status of each channel is tracked in **[PUBLISHING.md](PUBLISHING.md)**:
+
+| Channel | Status |
+|---|---|
+| GitHub Topics (`claude-code`, `claude-skills`, `claude-config`, `claude-plugin`, `scaffold`, `workflow-rules`, `ai-coding`, `developer-tools`) | ✅ done — repo is discoverable via GitHub topic pages |
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) PR | 🟡 fork + branch ready — one-click PR creation: see [PUBLISHING.md §1](PUBLISHING.md#1-awesome-claude-code-pr--almost-auto-one-click-left-for-you) |
+| Anthropic plugin marketplace ([clau.de/plugin-directory-submission](https://clau.de/plugin-directory-submission)) | ⚪ manual form — content prepared in [PUBLISHING.md §2](PUBLISHING.md#2-anthropic-plugin-marketplace-manual-form) |
+| [claudemarketplaces.com](https://claudemarketplaces.com/) / [buildwithclaude.com](https://buildwithclaude.com/) | ⚪ likely auto-aggregated (~24h after topics set) |
+| npm registry (`npx claude-config`) | ⚪ requires `npm login` + `npm publish` — see [PUBLISHING.md §4](PUBLISHING.md#4-npm-registry-manual-npm-login--npm-publish). Currently usable as `npx github:jajupmochi/claude-config` |
+
 ## Build history
 
 `claude-config` was built in 11 phases on 2026-04-29 (single-day v0.1.0):
 
 | Phase | Focus | Commit |
 |---|---|---|
-| P1 | Foundation (README, CLAUDE.md, docs, structure) | `6d6d16d` |
-| P1.5 | Discovery scan: local tools inventory → draft `docs/DISCOVERY.md` (gitignored) | `437900f` |
-| P2 | 9 workflow rules distilled from `~/.claude/CLAUDE.md` and personal-site `CLAUDE.local.md` | `34492de` |
-| P3 | 2 reusable hooks (ruff format-on-edit, jq JSON validate) | `d7f37e9` |
-| P4 | 5 general-purpose skills (verify, preview, long-running-tasks, verify-visual, privacy-redact) | `3a75877` |
-| P5 | 12 active recommendation lists + 2 reference tables | `14ede65` |
-| P6 | 3 tooling categories with agent-executable install steps (python-uv-ruff, node-nvm, permissions-allowlist) | `60ba20c` |
-| P7 | 2 project templates (research-package-py, personal-cite-static) | `4a331c6` |
-| P8 | `/init-claude-config` setup skill | `dd9e246` |
-| P9 | LICENSE + 4 meta-skills + GitHub publish | `e5a5e32` + push |
+| P1 | Foundation (README, CLAUDE.md, docs, structure) | `1e94686` |
+| P1.5 | Discovery scan: local tools inventory → draft `docs/DISCOVERY.md` (gitignored) | `f4cc5eb` |
+| P2 | 9 workflow rules distilled from `~/.claude/CLAUDE.md` and personal-site `CLAUDE.local.md` | `314e292` |
+| P3 | 2 reusable hooks (ruff format-on-edit, jq JSON validate) | `61e5261` |
+| P4 | 5 general-purpose skills (verify, preview, long-running-tasks, verify-visual, privacy-redact) | `5ed2b45` |
+| P5 | 12 active recommendation lists + 2 reference tables | `b328c84` |
+| P6 | 3 tooling categories with agent-executable install steps (python-uv-ruff, node-nvm, permissions-allowlist) | `f8e2042` |
+| P7 | 2 project templates (research-package-py, personal-cite-static) | `5722a88` |
+| P8 | `/init-claude-config` setup skill | `b97b8b7` |
+| P9 | LICENSE + 4 meta-skills + GitHub publish | `1673f37` + push |
 | P10 | Plugin packaging (`.claude-plugin/plugin.json`) + final docs polish | (this commit) |
 
 Total surface area: 9 rules + 5 + 4 meta skills + 2 hooks + 12 recommendation lists + 3 tooling templates + 2 project templates + 1 setup skill + bilingual docs + 1 plugin manifest.

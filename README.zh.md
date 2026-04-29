@@ -231,17 +231,17 @@ claude-config/
 
 | Phase | 聚焦 | Commit |
 |---|---|---|
-| P1 | 基础骨架（README、CLAUDE.md、docs、结构） | `6d6d16d` |
-| P1.5 | Discovery 扫描：本机工具盘点 → 草稿 `docs/DISCOVERY.md`（gitignore） | `437900f` |
-| P2 | 9 条工作流规则（从 `~/.claude/CLAUDE.md` 和 personal-site `CLAUDE.local.md` 蒸馏） | `34492de` |
-| P3 | 2 个可复用钩子（ruff format-on-edit、jq JSON 校验） | `d7f37e9` |
-| P4 | 5 个通用技能（verify、preview、long-running-tasks、verify-visual、privacy-redact） | `3a75877` |
-| P5 | 12 个 active 推荐清单 + 2 个 reference 表 | `14ede65` |
-| P6 | 3 个工具链类目带 agent 可执行安装步骤（python-uv-ruff、node-nvm、permissions-allowlist） | `60ba20c` |
-| P7 | 2 个项目模板（research-package-py、personal-cite-static） | `4a331c6` |
-| P8 | `/init-claude-config` 安装技能 | `dd9e246` |
-| P9 | LICENSE + 4 个元技能 + GitHub publish | `e5a5e32` + push |
-| P10 | Plugin packaging（`.claude-plugin/plugin.json`）+ 文档收尾 | `e0dbbc2` |
+| P1 | 基础骨架（README、CLAUDE.md、docs、结构） | `1e94686` |
+| P1.5 | Discovery 扫描：本机工具盘点 → 草稿 `docs/DISCOVERY.md`（gitignore） | `f4cc5eb` |
+| P2 | 9 条工作流规则（从 `~/.claude/CLAUDE.md` 和 personal-site `CLAUDE.local.md` 蒸馏） | `314e292` |
+| P3 | 2 个可复用钩子（ruff format-on-edit、jq JSON 校验） | `61e5261` |
+| P4 | 5 个通用技能（verify、preview、long-running-tasks、verify-visual、privacy-redact） | `5ed2b45` |
+| P5 | 12 个 active 推荐清单 + 2 个 reference 表 | `b328c84` |
+| P6 | 3 个工具链类目带 agent 可执行安装步骤（python-uv-ruff、node-nvm、permissions-allowlist） | `f8e2042` |
+| P7 | 2 个项目模板（research-package-py、personal-cite-static） | `5722a88` |
+| P8 | `/init-claude-config` 安装技能 | `b97b8b7` |
+| P9 | LICENSE + 4 个元技能 + GitHub publish | `1673f37` + push |
+| P10 | Plugin packaging（`.claude-plugin/plugin.json`）+ 文档收尾 | `71b11a9` |
 
 总规模：9 规则 + 5 + 4 元技能 + 2 钩子 + 12 推荐清单 + 3 工具偏好 + 2 项目模板 + 1 安装技能 + 双语文档 + 1 plugin manifest。
 
