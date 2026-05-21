@@ -35,7 +35,7 @@ See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) and README's "Build history" for de
 
 ## Rules
 
-✅ Populated in P2 (2026-04-29). 9 rules + index README.
+✅ 13 rules + index README. Initial 9 populated in P2 (2026-04-29); 4 added 2026-05-21 from global `~/.claude/CLAUDE.md` evolution.
 
 | Rule | Scope | One-line |
 |---|---|---|
@@ -48,12 +48,16 @@ See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) and README's "Build history" for de
 | [`tool-proactivity`](rules/tool-proactivity/RULE.md) | personal | Installed plugin / skill / MCP fires without asking when matched (with explicit-approval exceptions) |
 | [`no-reread-files`](rules/no-reread-files/RULE.md) | personal | Trust your in-session memory of file contents; re-read only on actual change |
 | [`bilingual-docs`](rules/bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` convention (consumer-side opt-in via `setup/init-claude-config`) |
+| [`end-of-turn-marker`](rules/end-of-turn-marker/RULE.md) | personal | Every turn ends with `[END:FINAL]` / `[END:WAIT]` / `[END:NEEDS_USER]` on its own line |
+| [`always-on-verification`](rules/always-on-verification/RULE.md) | research-pkg | Before any code / test / results claim, invoke `code-verifier` (artifact authenticity) and/or `research-critic` (inferential soundness) |
+| [`autorun-mode`](rules/autorun-mode/RULE.md) | personal | When user says "autorun" / "全力跑" / "think a lot" + scope: higher-autonomy cadence + multi-pass review + branch hygiene |
+| [`multi-round-redesign`](rules/multi-round-redesign/RULE.md) | ui-project | N-round UI redesign protocol with date-stamped `00-plan.md` + `round-N.html`/`.png`/`.notes.md` + final spec lock + production-lock round |
 
 See [`rules/README.md`](rules/README.md) for usage details and scope-tag definitions.
 
 ## Skills
 
-✅ Populated in P4 (2026-04-29). 5 general-bucket skills + index README.
+✅ 7 general-bucket skills + index README. Initial 5 populated in P4 (2026-04-29); 2 added 2026-05-21 from user-level always-on gates.
 
 | Skill | Bucket | Trigger | Purpose |
 |---|---|---|---|
@@ -62,6 +66,8 @@ See [`rules/README.md`](rules/README.md) for usage details and scope-tag definit
 | [`long-running-tasks`](skills/general/long-running-tasks/SKILL.md) | general | auto / `/long-running-tasks` | Decision tree: background subagent vs Monitor vs explicit timeout |
 | [`verify-visual`](skills/general/verify-visual/SKILL.md) | general | auto on UI changes | chrome-devtools MCP screenshot + 4-axis self-critique against reference |
 | [`privacy-redact`](skills/general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | Scan + redact usernames, absolute paths, secrets, codenames |
+| [`code-verifier`](skills/general/code-verifier/SKILL.md) | general | auto / `/code-verifier` | Three-layer gate before any "tests pass" / "code works" / "results show X" claim — detects FAKE-RUN patterns |
+| [`research-critic`](skills/general/research-critic/SKILL.md) | general | auto / `/research-critic` | Six-question audit on every research claim (falsifiability, design, fair comparison, leakage, proportional conclusion, alternatives) |
 
 Future buckets (populated in P7 with templates):
 
@@ -83,22 +89,24 @@ See [`hooks/README.md`](hooks/README.md) for install instructions.
 
 ## Recommendations
 
-✅ Populated in P5 (2026-04-29). 12 active files + 2 reference tables + index README.
+✅ 14 active files + 2 reference tables + index README. Initial 12 populated in P5 (2026-04-29); 2 added 2026-05-21 from user-level frontend resource bank + new tooling notes. Existing files updated with new entries (Chakra UI, anime.js, useanimations, itshover, HyperFrames, math-curve-loaders, React Native motion, yesicon.app, svgl.app, MLflow + W&B + ClearML).
 
 | File | Context | Coverage |
 |---|---|---|
 | [cc-plugins.md](recommendations/cc-plugins.md) | always | 37 Claude Code plugins (workflow, integrations, specialized) |
 | [cc-marketplaces-and-skill-bundles.md](recommendations/cc-marketplaces-and-skill-bundles.md) | always | 4 third-party marketplaces + 9 skill bundles via `npx skills add` |
 | [cli-tools.md](recommendations/cli-tools.md) | always (selectively) | System CLIs (jq, gh, ripgrep, fd, …) + Python user CLIs (uv, ruff, mkdocs, hf, …) |
-| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide, Radix full set, lenis, d3, visx, recharts, monaco, tanstack/table, shadcn |
-| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | ui-project + 3d-or-animation | motion, gsap, lottie-react, tailwindcss-animate; three, R3F, drei, mediapipe |
+| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide, Radix full set, **Chakra UI**, lenis, d3, visx, recharts, monaco, tanstack/table, shadcn ecosystem; icon explorers (**yesicon.app**, **svgl.app**) |
+| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | ui-project + 3d-or-animation | motion, gsap, **anime.js**, lottie-react, tailwindcss-animate, **math-curve-loaders**; three, R3F, drei, mediapipe; **animated icon catalogues** (itshover, useanimations); **HTML→video** (HyperFrames, Remotion); **React Native motion** |
 | [js-build-test-style.md](recommendations/js-build-test-style.md) | ui-project | vite, next, electron, vitest, playwright, storybook, tailwindcss, prettier |
 | [js-state-data.md](recommendations/js-state-data.md) | ui-project | pinia, zustand, swr, vueuse, vue-i18n, vue-router, next-themes |
 | [web-auditing.md](recommendations/web-auditing.md) | static-site / web-perf | chrome-devtools MCP (default), lighthouse CLI, lhci, pa11y, axe-core |
 | [image-video-pdf.md](recommendations/image-video-pdf.md) | image-or-video-work | sharp, svgo, imagemin, ffmpeg (apt), puppeteer |
 | [docs-tools.md](recommendations/docs-tools.md) | docs-site | mkdocs + material, ghp-import, latexmk (apt) |
-| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli], datasets, gpustat, kaleido, selenium |
+| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli], datasets, gpustat, kaleido, selenium; **experiment tracking platforms** (MLflow, Weights & Biases, ClearML) |
 | [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21-category ML skill stack incl. `0-autoresearch-skill` meta-orchestrator |
+| [ai-coding-tools.md](recommendations/ai-coding-tools.md) | optional | Spec-driven scaffolding (**OpenSpec**) + paper review (**paperreview.ai**) |
+| [cluster-hpc.md](recommendations/cluster-hpc.md) | optional | SLURM patterns, free-tier rules, rsync conventions for HPC clusters |
 | [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always (lookup) | apt-installed packages — knowledge table only, never auto-install |
 | [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always (lookup) | VS Code extensions — knowledge table only, CC-friendly defaults flagged |
 

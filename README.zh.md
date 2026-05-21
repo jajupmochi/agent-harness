@@ -1,6 +1,6 @@
 # claude-config
 
-> 贾林林为 Claude Code 整理的配置库：**工作流规则、技能（skills）、钩子（hooks）、插件推荐、工具偏好和项目模板**。每台机器装一次，然后在任何新项目里跑 `/init-claude-config`，按项目类型 scaffold 出对应子集。
+> Linlin 为 Claude Code 整理的配置库：**工作流规则、技能（skills）、钩子（hooks）、插件推荐、工具偏好和项目模板**。每台机器装一次，然后在任何新项目里跑 `/init-claude-config`，按项目类型 scaffold 出对应子集。
 
 > **语言：** [English](README.md) | 中文
 
@@ -12,10 +12,10 @@
 - [这是什么](#这是什么)
 - [快速上手](#快速上手)
 - [仓库结构](#仓库结构)
-- [9 条工作流规则](#9-条工作流规则)
-- [5 个可复用技能](#5-个可复用技能)
+- [13 条工作流规则](#13-条工作流规则)
+- [7 个可复用技能](#7-个可复用技能)
 - [2 个钩子配方](#2-个钩子配方)
-- [推荐清单（12 类）](#推荐清单12-类)
+- [推荐清单（14 类）](#推荐清单14-类)
 - [项目模板](#项目模板)
 - [安装技能 `/init-claude-config`](#安装技能-init-claude-config)
 - [给维护者](#给维护者)
@@ -149,8 +149,12 @@ claude-config/
 | [`no-reread-files`](rules/no-reread-files/RULE.md) | personal | 信任本 session 内对文件内容的记忆；除非真的变了不再重读 |
 | [`chinese-output`](rules/chinese-output/RULE.md) | personal | 终端面向用户输出用中文；中间过程保持英文 |
 | [`bilingual-docs`](rules/bilingual-docs/RULE.md) | optional | 面向人类的 doc 用 `NAME.md` + `NAME.zh.md` 双语约定（消费方 opt-in） |
+| [`end-of-turn-marker`](rules/end-of-turn-marker/RULE.md) | personal | 每轮以 `[END:FINAL]` / `[END:WAIT]` / `[END:NEEDS_USER]` 单行结束 |
+| [`always-on-verification`](rules/always-on-verification/RULE.md) | research-pkg | 任何 code / test / 结果声明前调用 `code-verifier` + `research-critic` |
+| [`autorun-mode`](rules/autorun-mode/RULE.md) | personal | "autorun" / "全力跑" / "think a lot" + scope → 高自主 cadence + 多轮 review + 分支卫生 |
+| [`multi-round-redesign`](rules/multi-round-redesign/RULE.md) | ui-project | N 轮 UI 重设计协议——日期戳子目录里 `00-plan.md` + `round-N.html`/`.png` + 最终 spec lock |
 
-## 5 个可复用技能
+## 7 个可复用技能
 
 | 技能 | 桶 | 触发 | 用途 |
 |---|---|---|---|
@@ -159,6 +163,8 @@ claude-config/
 | [`long-running-tasks`](skills/general/long-running-tasks/SKILL.md) | general | 自动 / `/long-running-tasks` | 决策树：后台 subagent vs Monitor vs 显式超时 |
 | [`verify-visual`](skills/general/verify-visual/SKILL.md) | general | UI 改动时自动 | chrome-devtools MCP 截图 + 四轴自评对比参考 |
 | [`privacy-redact`](skills/general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | 扫描文件中的用户名、绝对路径、token、代号；用占位符 redact |
+| [`code-verifier`](skills/general/code-verifier/SKILL.md) | general | 自动 / `/code-verifier` | "tests pass" / "code works" / "结果是 X" 前的三层门禁——检测 FAKE-RUN 模式 |
+| [`research-critic`](skills/general/research-critic/SKILL.md) | general | 自动 / `/research-critic` | 六问审计：可证伪 · 设计与假设匹配 · 公平比较 · 泄漏 · 结论与证据匹配 · 替代解释排除 |
 
 外加：**`/init-claude-config`** 安装技能（Phase 8 入口）。
 
@@ -171,7 +177,7 @@ claude-config/
 | [`ruff-format-on-edit`](hooks/ruff-format-on-edit/README.md) | `PostToolUse` | `Write\|Edit` | research-pkg / Python | Claude 编辑后用 ruff 自动格式化 `*.py` |
 | [`jq-validate-json`](hooks/jq-validate-json/README.md) | `PostToolUse` | `Write\|Edit` | static-site / JSON 配置 | Claude 写入 `*/locales/*.json` 或 `*/data/*.json` 无效 JSON 时拦截下次工具调用 |
 
-## 推荐清单（12 类）
+## 推荐清单（14 类）
 
 每条都有 agent 可执行的安装命令、context 标签、"为什么用"理由。
 
@@ -180,15 +186,17 @@ claude-config/
 | [cc-plugins.md](recommendations/cc-plugins.md) | always | 37 个 Claude Code 插件（workflow、集成、specialized） |
 | [cc-marketplaces-and-skill-bundles.md](recommendations/cc-marketplaces-and-skill-bundles.md) | always | 4 个第三方 marketplace + 9 个 `npx skills add` skill bundle（GSAP、shadcn、impeccable、Remotion、baoyu 等） |
 | [cli-tools.md](recommendations/cli-tools.md) | always（按需） | 系统 CLI（jq、gh、ripgrep、fd 等）+ Python 用户级 CLI（uv、ruff、mkdocs、hf 等） |
-| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide、Radix UI 全套、lenis、d3、visx、recharts、monaco、tanstack/table |
-| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | 3d-or-animation | motion、gsap、lottie-react、tailwindcss-animate；three、R3F、drei、mediapipe |
+| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide、Radix UI 全套、**Chakra UI**、lenis、d3、visx、recharts、monaco、tanstack/table、shadcn；图标浏览器（**yesicon.app**、**svgl.app**） |
+| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | 3d-or-animation | motion、gsap、**anime.js**、lottie-react、tailwindcss-animate、**math-curve-loaders**；three、R3F、drei、mediapipe；动效图标库（**itshover**、**useanimations**）；HTML→视频（**HyperFrames**、Remotion）；React Native motion |
 | [js-build-test-style.md](recommendations/js-build-test-style.md) | ui-project | vite、next、electron、vitest、playwright、storybook、tailwindcss、prettier |
 | [js-state-data.md](recommendations/js-state-data.md) | ui-project | pinia、zustand、swr、vueuse、vue-i18n、vue-router、next-themes |
 | [web-auditing.md](recommendations/web-auditing.md) | static-site / web-perf | chrome-devtools MCP（默认零安装）、lighthouse CLI、lhci、pa11y、axe-core |
 | [image-video-pdf.md](recommendations/image-video-pdf.md) | image-or-video-work | sharp、svgo、imagemin、ffmpeg（apt）、puppeteer |
 | [docs-tools.md](recommendations/docs-tools.md) | docs-site | mkdocs + material、ghp-import、latexmk（apt） |
-| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli]、datasets、gpustat、kaleido、selenium |
+| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli]、datasets、gpustat、kaleido、selenium；**实验跟踪平台**（MLflow、Weights & Biases、ClearML） |
 | [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21 类 ML 技能栈，含 `0-autoresearch-skill` 元编排器 |
+| [ai-coding-tools.md](recommendations/ai-coding-tools.md) | optional | Spec-driven 脚手架（**OpenSpec**）+ 论文 review（**paperreview.ai**） |
+| [cluster-hpc.md](recommendations/cluster-hpc.md) | optional | SLURM 模式、free-tier 规则、HPC 集群 rsync 约定 |
 | [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always（查询） | apt 包参考表——绝不自动安装 |
 | [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always（查询） | VS Code 扩展参考表——绝不自动安装 |
 

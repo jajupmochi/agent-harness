@@ -23,15 +23,17 @@ The `setup/init-claude-config` skill (P8) does this composition automatically ba
 | [cc-plugins.md](cc-plugins.md) | always | 37 Claude Code plugins (workflow, integrations, specialized) |
 | [cc-marketplaces-and-skill-bundles.md](cc-marketplaces-and-skill-bundles.md) | always | 4 third-party marketplaces + 9 skill bundles via `npx skills add` |
 | [cli-tools.md](cli-tools.md) | always (selectively) | System (jq, gh, ripgrep, fd, …) + Python user CLIs (uv, ruff, mkdocs, hf, gpustat, …) |
-| [js-ui-and-design.md](js-ui-and-design.md) | ui-project | Lucide icons, Radix UI full set, lenis, d3, visx, recharts, monaco, tanstack table, shadcn ecosystem |
-| [js-animation-and-3d.md](js-animation-and-3d.md) | ui-project + 3d-or-animation | motion, gsap, lottie-react, tailwindcss-animate; three, R3F, drei, mediapipe |
+| [js-ui-and-design.md](js-ui-and-design.md) | ui-project | Lucide icons, Radix UI full set, Chakra UI, lenis, d3, visx, recharts, monaco, tanstack table, shadcn ecosystem; icon explorers (yesicon, svgl) |
+| [js-animation-and-3d.md](js-animation-and-3d.md) | ui-project + 3d-or-animation | motion, gsap, anime.js, lottie-react, tailwindcss-animate, math-curve-loaders; three, R3F, drei, mediapipe; animated icon catalogues (itshover, useanimations); HTML→video (HyperFrames, Remotion); React Native motion |
 | [js-build-test-style.md](js-build-test-style.md) | ui-project | vite, next, electron, vitest, playwright, storybook, tailwindcss + ecosystem, prettier |
 | [js-state-data.md](js-state-data.md) | ui-project | pinia, zustand, swr, vueuse, vue-i18n, vue-router, next-themes |
 | [web-auditing.md](web-auditing.md) | static-site / web-perf | chrome-devtools MCP (default), lighthouse CLI, lhci, pa11y, axe-core |
 | [image-video-pdf.md](image-video-pdf.md) | image-or-video-work | sharp, svgo, imagemin, ffmpeg (via apt), puppeteer |
 | [docs-tools.md](docs-tools.md) | docs-site | mkdocs + material, ghp-import, latexmk (via apt) |
-| [ml-research.md](ml-research.md) | ml-research | huggingface_hub[cli], datasets, gpustat, kaleido, selenium |
+| [ml-research.md](ml-research.md) | ml-research | huggingface_hub[cli], datasets, gpustat, kaleido, selenium; experiment tracking platforms (MLflow, Weights & Biases, ClearML) |
 | [orchestra-ml-skills.md](orchestra-ml-skills.md) | ml-research | 21-category ML skill stack incl. `0-autoresearch-skill` meta-orchestrator |
+| [ai-coding-tools.md](ai-coding-tools.md) | optional | Spec-driven scaffolding (OpenSpec) + paper review (paperreview.ai) |
+| [cluster-hpc.md](cluster-hpc.md) | optional | SLURM patterns, free-tier rules, rsync conventions for HPC clusters |
 
 ## Reference tables (no auto-install)
 

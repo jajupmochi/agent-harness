@@ -35,7 +35,7 @@
 
 ## Rules
 
-✅ 已在 P2 填充（2026-04-29）。9 条规则 + 索引 README。
+✅ 13 条规则 + 索引 README。初始 9 条在 P2 填充（2026-04-29）；4 条新增于 2026-05-21（从全局 `~/.claude/CLAUDE.md` 演化提取）。
 
 | 规则 | Scope | 一句话 |
 |---|---|---|
@@ -48,12 +48,16 @@
 | [`tool-proactivity`](rules/tool-proactivity/RULE.md) | personal | 已安装的插件 / skill / MCP 匹配场景时主动调用（含若干"必须先确认"的例外） |
 | [`no-reread-files`](rules/no-reread-files/RULE.md) | personal | 信任本 session 内对文件内容的记忆；除非真的变了不再重读 |
 | [`bilingual-docs`](rules/bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` 双语文档约定（消费方 opt-in via `setup/init-claude-config`） |
+| [`end-of-turn-marker`](rules/end-of-turn-marker/RULE.md) | personal | 每轮以 `[END:FINAL]` / `[END:WAIT]` / `[END:NEEDS_USER]` 单行结束 |
+| [`always-on-verification`](rules/always-on-verification/RULE.md) | research-pkg | 任何 code / test / 结果声明前，调用 `code-verifier`（artifact 真实性）+ `research-critic`（推理链可靠性） |
+| [`autorun-mode`](rules/autorun-mode/RULE.md) | personal | 用户说 "autorun" / "全力跑" / "think a lot" + scope 时：高自主 cadence + 多轮 review + 分支卫生 |
+| [`multi-round-redesign`](rules/multi-round-redesign/RULE.md) | ui-project | N 轮 UI 重设计协议——日期戳子目录里 `00-plan.md` + 每轮 `round-N.html`/`.png`/`.notes.md` + 最终 spec lock + production-lock 轮 |
 
 详见 [`rules/README.md`](rules/README.md)（用法说明 + scope 标签定义）。
 
 ## Skills
 
-✅ 已在 P4 填充（2026-04-29）。general 桶 5 个技能 + 索引 README。
+✅ general 桶 7 个技能 + 索引 README。初始 5 个在 P4 填充（2026-04-29）；2 个新增于 2026-05-21（从用户级 always-on 验证 gates 蒸馏）。
 
 | 技能 | 桶 | 触发 | 用途 |
 |---|---|---|---|
@@ -62,6 +66,8 @@
 | [`long-running-tasks`](skills/general/long-running-tasks/SKILL.md) | general | 自动 / `/long-running-tasks` | 决策树：后台 subagent vs Monitor vs 显式超时 |
 | [`verify-visual`](skills/general/verify-visual/SKILL.md) | general | UI 改动时自动 | chrome-devtools MCP 截图 + 四轴对比参考 |
 | [`privacy-redact`](skills/general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | 扫描并 redact 用户名、绝对路径、密钥、代号 |
+| [`code-verifier`](skills/general/code-verifier/SKILL.md) | general | 自动 / `/code-verifier` | "tests pass" / "code works" / "结果是 X" 前的三层门禁——检测 FAKE-RUN 模式（硬编码结果、`assert True`、纯 mock 测试等） |
+| [`research-critic`](skills/general/research-critic/SKILL.md) | general | 自动 / `/research-critic` | 六问审计：可证伪性 · 设计与假设匹配 · 公平比较 · 泄漏 · 结论与证据匹配 · 替代解释排除 |
 
 后续桶（将在 P7 模板里填充）：
 
@@ -83,22 +89,24 @@
 
 ## Recommendations
 
-✅ 已在 P5 填充（2026-04-29）。12 个 active 文件 + 2 个 reference table + 索引 README。
+✅ 14 个 active 文件 + 2 个 reference table + 索引 README。初始 12 个在 P5 填充（2026-04-29）；2 个新增于 2026-05-21（从用户级 frontend resource bank + tooling notes 提取）。多个现存文件补充了条目（Chakra UI、anime.js、useanimations、itshover、HyperFrames、math-curve-loaders、React Native motion、yesicon.app、svgl.app、MLflow + W&B + ClearML）。
 
 | 文件 | Context | 覆盖 |
 |---|---|---|
 | [cc-plugins.md](recommendations/cc-plugins.md) | always | 37 个 Claude Code 插件（workflow / 集成 / specialized） |
 | [cc-marketplaces-and-skill-bundles.md](recommendations/cc-marketplaces-and-skill-bundles.md) | always | 4 个第三方 marketplace + 9 个 `npx skills add` 装的 skill bundle |
 | [cli-tools.md](recommendations/cli-tools.md) | always（按需） | 系统 CLI（jq、gh、ripgrep、fd 等）+ Python 用户级 CLI（uv、ruff、mkdocs、hf 等） |
-| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide、Radix 全套、lenis、d3、visx、recharts、monaco、tanstack/table、shadcn |
-| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | ui-project + 3d-or-animation | motion、gsap、lottie-react、tailwindcss-animate；three、R3F、drei、mediapipe |
+| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide、Radix 全套、**Chakra UI**、lenis、d3、visx、recharts、monaco、tanstack/table、shadcn；图标浏览器（**yesicon.app**、**svgl.app**） |
+| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | ui-project + 3d-or-animation | motion、gsap、**anime.js**、lottie-react、tailwindcss-animate、**math-curve-loaders**；three、R3F、drei、mediapipe；**动效图标库**（itshover、useanimations）；**HTML→视频**（HyperFrames、Remotion）；**React Native motion** |
 | [js-build-test-style.md](recommendations/js-build-test-style.md) | ui-project | vite、next、electron、vitest、playwright、storybook、tailwindcss、prettier |
 | [js-state-data.md](recommendations/js-state-data.md) | ui-project | pinia、zustand、swr、vueuse、vue-i18n、vue-router、next-themes |
 | [web-auditing.md](recommendations/web-auditing.md) | static-site / web-perf | chrome-devtools MCP（默认）、lighthouse CLI、lhci、pa11y、axe-core |
 | [image-video-pdf.md](recommendations/image-video-pdf.md) | image-or-video-work | sharp、svgo、imagemin、ffmpeg（apt）、puppeteer |
 | [docs-tools.md](recommendations/docs-tools.md) | docs-site | mkdocs + material、ghp-import、latexmk（apt） |
-| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli]、datasets、gpustat、kaleido、selenium |
+| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli]、datasets、gpustat、kaleido、selenium；**实验跟踪平台**（MLflow、Weights & Biases、ClearML） |
 | [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21 类 ML 技能栈，含 `0-autoresearch-skill` 元编排器 |
+| [ai-coding-tools.md](recommendations/ai-coding-tools.md) | optional | Spec-driven 脚手架（**OpenSpec**）+ 论文 review（**paperreview.ai**） |
+| [cluster-hpc.md](recommendations/cluster-hpc.md) | optional | SLURM 模式、free-tier 规则、HPC 集群 rsync 约定 |
 | [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always（查询） | apt 包知识表——绝不自动安装 |
 | [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always（查询） | VS Code 扩展知识表——绝不自动安装；CC-friendly 默认值已标注 |
 

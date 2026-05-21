@@ -12,10 +12,10 @@
 - [What this is](#what-this-is)
 - [Quick Start](#quick-start)
 - [Repository structure](#repository-structure)
-- [The 9 workflow rules](#the-9-workflow-rules)
-- [The 5 reusable skills](#the-5-reusable-skills)
+- [The 13 workflow rules](#the-13-workflow-rules)
+- [The 7 reusable skills](#the-7-reusable-skills)
 - [The 2 hook recipes](#the-2-hook-recipes)
-- [Recommendations (12 curated lists)](#recommendations-12-curated-lists)
+- [Recommendations (14 curated lists)](#recommendations-14-curated-lists)
 - [Project templates](#project-templates)
 - [The setup skill `/init-claude-config`](#the-setup-skill-init-claude-config)
 - [For maintainers](#for-maintainers)
@@ -135,7 +135,7 @@ claude-config/
     └── plugin.json                   ← plugin manifest
 ```
 
-## The 9 workflow rules
+## The 13 workflow rules
 
 Each ships as `RULE.md` (full content, rationale, examples, exceptions) + `snippet.md` (drop-in for downstream `CLAUDE.md` via `@import`).
 
@@ -150,8 +150,12 @@ Each ships as `RULE.md` (full content, rationale, examples, exceptions) + `snipp
 | [`no-reread-files`](rules/no-reread-files/RULE.md) | personal | Trust your in-session memory of file contents; re-read only on actual change |
 | [`chinese-output`](rules/chinese-output/RULE.md) | personal | Final user-facing output in Chinese; intermediate stays English |
 | [`bilingual-docs`](rules/bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` convention for human-facing docs (consumer opt-in) |
+| [`end-of-turn-marker`](rules/end-of-turn-marker/RULE.md) | personal | Every turn ends with `[END:FINAL]` / `[END:WAIT]` / `[END:NEEDS_USER]` on its own line |
+| [`always-on-verification`](rules/always-on-verification/RULE.md) | research-pkg | Before any code / test / results claim, invoke `code-verifier` + `research-critic` |
+| [`autorun-mode`](rules/autorun-mode/RULE.md) | personal | "autorun" / "全力跑" / "think a lot" + scope → higher-autonomy cadence + multi-pass review + branch hygiene |
+| [`multi-round-redesign`](rules/multi-round-redesign/RULE.md) | ui-project | N-round UI redesign protocol with date-stamped outputs + per-round lens discipline + final spec lock |
 
-## The 5 reusable skills
+## The 7 reusable skills
 
 | Skill | Bucket | Trigger | Purpose |
 |---|---|---|---|
@@ -160,6 +164,8 @@ Each ships as `RULE.md` (full content, rationale, examples, exceptions) + `snipp
 | [`long-running-tasks`](skills/general/long-running-tasks/SKILL.md) | general | auto / `/long-running-tasks` | Decision tree: background subagent vs Monitor vs explicit timeout |
 | [`verify-visual`](skills/general/verify-visual/SKILL.md) | general | auto on UI changes | chrome-devtools MCP screenshot + 4-axis self-critique against reference |
 | [`privacy-redact`](skills/general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | Scan file for usernames, absolute paths, tokens, codenames; redact with placeholders |
+| [`code-verifier`](skills/general/code-verifier/SKILL.md) | general | auto / `/code-verifier` | Three-layer gate before any "tests pass" / "code works" / "results show X" claim — detects FAKE-RUN patterns |
+| [`research-critic`](skills/general/research-critic/SKILL.md) | general | auto / `/research-critic` | Six-question audit on every research claim (falsifiability, design, fair comparison, leakage, proportional conclusion, alternatives) |
 
 Plus: the **`/init-claude-config`** setup skill (Phase 8 entry point).
 
@@ -172,7 +178,7 @@ Each ships as `README.md` (what / why / install / variants) + `settings.snippet.
 | [`ruff-format-on-edit`](hooks/ruff-format-on-edit/README.md) | `PostToolUse` | `Write\|Edit` | research-pkg / Python | Auto-format `*.py` with ruff after every Claude edit |
 | [`jq-validate-json`](hooks/jq-validate-json/README.md) | `PostToolUse` | `Write\|Edit` | static-site / JSON-config | Block next tool call if Claude wrote invalid JSON to `*/locales/*.json` or `*/data/*.json` |
 
-## Recommendations (12 curated lists)
+## Recommendations (14 curated lists)
 
 Each list has agent-executable install commands, context tags, and "why use this" rationale.
 
@@ -181,15 +187,17 @@ Each list has agent-executable install commands, context tags, and "why use this
 | [cc-plugins.md](recommendations/cc-plugins.md) | always | 37 Claude Code plugins (workflow, integrations, specialized) |
 | [cc-marketplaces-and-skill-bundles.md](recommendations/cc-marketplaces-and-skill-bundles.md) | always | 4 third-party marketplaces + 9 skill bundles via `npx skills add` (GSAP, shadcn, impeccable, Remotion, baoyu, etc.) |
 | [cli-tools.md](recommendations/cli-tools.md) | always (selectively) | System CLIs (jq, gh, ripgrep, fd, …) + Python user CLIs (uv, ruff, mkdocs, hf, …) |
-| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide, Radix UI full set, lenis, d3, visx, recharts, monaco, tanstack/table |
-| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | 3d-or-animation | motion, gsap, lottie-react, tailwindcss-animate; three, R3F, drei, mediapipe |
+| [js-ui-and-design.md](recommendations/js-ui-and-design.md) | ui-project | Lucide, Radix full set, **Chakra UI**, lenis, d3, visx, recharts, monaco, tanstack/table, shadcn; icon explorers (**yesicon.app**, **svgl.app**) |
+| [js-animation-and-3d.md](recommendations/js-animation-and-3d.md) | 3d-or-animation | motion, gsap, **anime.js**, lottie-react, tailwindcss-animate, **math-curve-loaders**; three, R3F, drei, mediapipe; animated icon catalogues (**itshover**, **useanimations**); HTML→video (**HyperFrames**, Remotion); React Native motion |
 | [js-build-test-style.md](recommendations/js-build-test-style.md) | ui-project | vite, next, electron, vitest, playwright, storybook, tailwindcss, prettier |
 | [js-state-data.md](recommendations/js-state-data.md) | ui-project | pinia, zustand, swr, vueuse, vue-i18n, vue-router, next-themes |
 | [web-auditing.md](recommendations/web-auditing.md) | static-site / web-perf | chrome-devtools MCP (zero-install default), lighthouse CLI, lhci, pa11y, axe-core |
 | [image-video-pdf.md](recommendations/image-video-pdf.md) | image-or-video-work | sharp, svgo, imagemin, ffmpeg (apt), puppeteer |
 | [docs-tools.md](recommendations/docs-tools.md) | docs-site | mkdocs + material, ghp-import, latexmk (apt) |
-| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli], datasets, gpustat, kaleido, selenium |
+| [ml-research.md](recommendations/ml-research.md) | ml-research | huggingface_hub[cli], datasets, gpustat, kaleido, selenium; **experiment tracking** (MLflow, Weights & Biases, ClearML) |
 | [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21-category ML skill stack incl. `0-autoresearch-skill` meta-orchestrator |
+| [ai-coding-tools.md](recommendations/ai-coding-tools.md) | optional | Spec-driven scaffolding (**OpenSpec**) + paper review (**paperreview.ai**) |
+| [cluster-hpc.md](recommendations/cluster-hpc.md) | optional | SLURM patterns, free-tier rules, rsync conventions for HPC clusters |
 | [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always (lookup) | Apt packages reference table — never auto-install |
 | [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always (lookup) | VS Code extensions reference table — never auto-install |
 

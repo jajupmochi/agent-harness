@@ -29,6 +29,8 @@ Once available, Claude can invoke a skill via the `Skill` tool, or the user via 
 | [`long-running-tasks`](general/long-running-tasks/SKILL.md) | general | auto / `/long-running-tasks` | Decision tree for handling long-running operations (background subagent vs Monitor vs explicit timeout) |
 | [`verify-visual`](general/verify-visual/SKILL.md) | general | auto on UI changes | Use chrome-devtools MCP to screenshot + verify visual changes match a reference |
 | [`privacy-redact`](general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | Scan a file for usernames, absolute paths, secrets, project codenames; redact with placeholders |
+| [`code-verifier`](general/code-verifier/SKILL.md) | general | auto / `/code-verifier` | Three-layer gate before any "tests pass" / "code works" / "results show X" claim — detects FAKE-RUN patterns (hardcoded results, `assert True`, mocks-only tests, etc.) |
+| [`research-critic`](general/research-critic/SKILL.md) | general | auto / `/research-critic` | Six-question audit on every research claim (falsifiability, design, fair comparison, leakage, proportional conclusion, alternatives ruled out) |
 
 Future buckets (populated in P7 with templates):
 

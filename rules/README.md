@@ -32,6 +32,10 @@ The `setup/init-claude-config` skill (P8) does this composition automatically ba
 | [`tool-proactivity`](tool-proactivity/RULE.md) | personal | Installed skills / plugins fire without asking |
 | [`no-reread-files`](no-reread-files/RULE.md) | personal | Trust in-session memory of file contents |
 | [`bilingual-docs`](bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` convention for human-facing docs |
+| [`end-of-turn-marker`](end-of-turn-marker/RULE.md) | personal | Every turn ends with `[END:FINAL]` / `[END:WAIT]` / `[END:NEEDS_USER]` on its own line |
+| [`always-on-verification`](always-on-verification/RULE.md) | research-pkg | Before any code / test / results claim, invoke `code-verifier` (artifact authenticity) and/or `research-critic` (inferential soundness) |
+| [`autorun-mode`](autorun-mode/RULE.md) | personal | When user says "autorun" / "全力跑" / "think a lot" + scope: shift to higher-autonomy cadence with multi-pass review + branch hygiene |
+| [`multi-round-redesign`](multi-round-redesign/RULE.md) | ui-project | N-round UI redesign protocol with date-stamped `00-plan.md` + `round-N.html`/`.png`/`.notes.md` + final spec lock + production-lock round |
 
 ## Scope tags
 

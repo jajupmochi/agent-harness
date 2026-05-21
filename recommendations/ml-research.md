@@ -5,6 +5,7 @@
 ## Master TOC
 
 - [HuggingFace ecosystem](#huggingface-ecosystem)
+- [Experiment tracking platforms](#experiment-tracking-platforms)
 - [GPU / system monitoring](#gpu--system-monitoring)
 - [Visualization](#visualization)
 - [Web scraping / browser automation](#web-scraping--browser-automation)
@@ -21,6 +22,26 @@
 | `accelerate` | HF Accelerate (distributed training) | `uv pip install accelerate` (or skill-based; see orchestra-ml-skills.md) |
 
 **Pair with**: `huggingface-skills@claude-plugins-official` (see [cc-plugins.md](cc-plugins.md)) for HF-aware workflows.
+
+## Experiment tracking platforms
+
+For tracking runs, hyperparameter searches, model artifacts, and data versions. Pick one (they overlap heavily):
+
+| Platform | When to choose | Install |
+|---|---|---|
+| **MLflow** | Open-source, self-hostable, broad coverage (tracking, models, projects, model registry). Pip-installable, works locally without an account | `uv pip install mlflow` (see [mlflow.org/docs](https://mlflow.org/docs/latest/ml/)) |
+| **Weights & Biases** (`wandb`) | Best-in-class UI for tracking + dashboards; free for personal / academic use; hosted (login required) | `uv pip install wandb` then `wandb login` |
+| **ClearML** | Open-source + hosted; strong on HPO, model registry, data versioning; pip-installable | `uv pip install clearml` (see [clear.ml/docs](https://clear.ml/docs/latest/docs/)) |
+
+**Decision**:
+
+- "Just want to log scalars + see a dashboard quickly" → `wandb`
+- "Need self-hosted + no third-party deps" → `mlflow`
+- "Want HPO + data versioning + serving + model registry, all in one" → `clearml`
+
+All three plug into PyTorch / Lightning / HuggingFace Trainer via small adapters.
+
+**Pair with**: `orchestra-ml-skills.md` (in this lib) §13 mlops bucket — has dedicated skills (`mlflow`, `weights-and-biases`, `swanlab`, `tensorboard`) for deeper guidance per platform.
 
 ## GPU / system monitoring
 
