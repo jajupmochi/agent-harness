@@ -35,15 +35,15 @@ sbatch <<EOF
 #SBATCH --qos=<your-qos>
 #SBATCH --partition=<partition>
 #SBATCH --time=12:00:00
-#SBATCH --gres=gpu:rtx4090:1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem-per-cpu=10G
+#SBATCH --gres=gpu:<gpu-model>:1   # e.g. gpu:a100:1 / gpu:rtx4090:1 / gpu:h100:1
+#SBATCH --cpus-per-task=<n>
+#SBATCH --mem-per-cpu=<size>G
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=<your-email>
 #SBATCH --output=outputs/<project>.<jobname>.o%j
 #SBATCH --error=errors/<project>.<jobname>.e%j
 
-module load Python/3.12.3-GCCcore-13.3.0
+module load Python/<version>     # exact module name varies per cluster
 source .venv/bin/activate
 
 python -m my_module --config configs/job.yaml
@@ -70,13 +70,13 @@ This is the canonical pattern — copy-adapt rather than inventing new `--partit
 
 ## Free-tier / shared-cluster rules
 
-Most academic clusters have a free/gratis tier with stricter limits. When in free tier:
+Most academic clusters offer a free / research-only tier with stricter limits. When in the free tier:
 
-- **Always** set the gratis account + qos (e.g., `--account=gratis --qos=job_gratis`) per the cluster's documentation. Other accounts may consume the user's paid budget.
-- **Hard cap per job** typically 1-2 GPUs (RTX 4090 / A100 / H100 depending on cluster). Check the cluster's docs.
-- **Wall-time limits** apply per partition (most are 24h-72h on gratis). Design jobs to checkpoint and re-queue rather than fight the limit.
-- **Memory**: `--mem-per-cpu=10G` is a sane default; `--cpus-per-task=4` per RTX4090 GPU is typical.
-- **Modules**: load Python via `module load Python/3.X-...` (the cluster will tell you the exact incantation).
+- **Always** set the free-tier account + qos (e.g., `--account=<free-tier-account> --qos=<free-tier-qos>`) per the cluster's documentation. Other accounts may consume the user's paid budget. Exact names vary per cluster (could be `free`, `community`, `research`, `priority`, etc.) — check the cluster's docs.
+- **Hard cap per job** is typically 1-2 GPUs (RTX 4090 / A100 / H100 depending on cluster). Check the cluster's docs.
+- **Wall-time limits** apply per partition (commonly 24h-72h on the free tier). Design jobs to checkpoint and re-queue rather than fight the limit.
+- **Memory + CPU defaults**: `--mem-per-cpu=<N>G` and `--cpus-per-task=<M>` vary per cluster + GPU model — start with the cluster's recommended defaults from its docs.
+- **Modules**: load the Python module the cluster provides (e.g. `module load Python/<version>`). Exact name + version are cluster-specific — `module avail Python` lists what's available.
 
 ## Cluster ↔ local sync convention
 
@@ -107,16 +107,18 @@ Datasets that already exist locally and are too big to sync: write a cluster-sid
 - **Email is wired via `--mail-type=ALL`** — keep on for long jobs.
 - **Cancel hung jobs**: `scancel <jobid>` (or `scancel -u $USER --name=<jobname>` for all jobs of a name).
 
-## Common partitions and what they're for
+## Common partition patterns
 
-| Partition | Typical use |
+Partition names are entirely cluster-specific. **Always check the cluster's docs** (often a page titled "partitions" or "queues") rather than guessing names. Common semantic categories you'll see:
+
+| Category | Common names |
 |---|---|
-| `gpu` | GPU jobs (RTX4090, A100, H100 — varies by cluster) |
-| `epyc2` / `bdw` / `cpu` | CPU-only jobs |
-| `teaching` | GPU on-demand with shorter wait |
-| `debug` / `short` | Quick interactive jobs (typically <1h wall time) |
+| GPU jobs | `gpu`, `gpu-short`, `gpu-long`, or model-specific like `a100`, `h100`, `rtx` |
+| CPU-only jobs | `cpu`, `compute`, or CPU-family-specific like `epyc`, `xeon` |
+| Quick / debug | `debug`, `short`, `interactive` (typically < 1h wall time) |
+| Lower-priority / on-demand | `dev`, `priority`, `preempt` (shorter wait, may be pre-empted) |
 
-Cluster-specific — consult the cluster's documentation for the exact partition map.
+Run `sinfo` on the cluster to enumerate the actual partitions and their wall-time / GPU / memory limits.
 
 ## Companion
 
