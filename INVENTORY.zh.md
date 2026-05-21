@@ -89,7 +89,7 @@
 
 ## Recommendations
 
-✅ 14 个 active 文件 + 2 个 reference table + 索引 README。初始 12 个在 P5 填充（2026-04-29）；2 个新增于 2026-05-21（从用户级 frontend resource bank + tooling notes 提取）。多个现存文件补充了条目（Chakra UI、anime.js、useanimations、itshover、HyperFrames、math-curve-loaders、React Native motion、yesicon.app、svgl.app、MLflow + W&B + ClearML）。
+✅ 15 个 active 文件 + 2 个 reference table + 索引 README。初始 12 个在 P5 填充（2026-04-29）；3 个新增于 2026-05-21（ai-coding-tools、cluster-hpc、reference-projects）。多个现存文件补充了条目（Chakra UI、anime.js、useanimations、itshover、HyperFrames、math-curve-loaders、React Native motion、yesicon.app、svgl.app、MLflow + W&B + ClearML）。
 
 | 文件 | Context | 覆盖 |
 |---|---|---|
@@ -107,6 +107,7 @@
 | [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21 类 ML 技能栈，含 `0-autoresearch-skill` 元编排器 |
 | [ai-coding-tools.md](recommendations/ai-coding-tools.md) | optional | Spec-driven 脚手架（**OpenSpec**）+ 论文 review（**paperreview.ai**） |
 | [cluster-hpc.md](recommendations/cluster-hpc.md) | optional | SLURM 模式、free-tier 规则、HPC 集群 rsync 约定 |
+| [reference-projects.md](recommendations/reference-projects.md) | optional | 值得学习的 standalone demo / template 项目（例如 `mykonos-island-voxels` —— 零依赖 Canvas 2D 等距岛屿生成器，painterly 资产、分层缓存渲染、触屏 UI） |
 | [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always（查询） | apt 包知识表——绝不自动安装 |
 | [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always（查询） | VS Code 扩展知识表——绝不自动安装；CC-friendly 默认值已标注 |
 

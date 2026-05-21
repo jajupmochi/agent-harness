@@ -15,7 +15,7 @@
 - [13 条工作流规则](#13-条工作流规则)
 - [7 个可复用技能](#7-个可复用技能)
 - [2 个钩子配方](#2-个钩子配方)
-- [推荐清单（14 类）](#推荐清单14-类)
+- [推荐清单（15 类）](#推荐清单15-类)
 - [项目模板](#项目模板)
 - [安装技能 `/init-claude-config`](#安装技能-init-claude-config)
 - [给维护者](#给维护者)
@@ -177,7 +177,7 @@ claude-config/
 | [`ruff-format-on-edit`](hooks/ruff-format-on-edit/README.md) | `PostToolUse` | `Write\|Edit` | research-pkg / Python | Claude 编辑后用 ruff 自动格式化 `*.py` |
 | [`jq-validate-json`](hooks/jq-validate-json/README.md) | `PostToolUse` | `Write\|Edit` | static-site / JSON 配置 | Claude 写入 `*/locales/*.json` 或 `*/data/*.json` 无效 JSON 时拦截下次工具调用 |
 
-## 推荐清单（14 类）
+## 推荐清单（15 类）
 
 每条都有 agent 可执行的安装命令、context 标签、"为什么用"理由。
 
@@ -197,6 +197,7 @@ claude-config/
 | [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21 类 ML 技能栈，含 `0-autoresearch-skill` 元编排器 |
 | [ai-coding-tools.md](recommendations/ai-coding-tools.md) | optional | Spec-driven 脚手架（**OpenSpec**）+ 论文 review（**paperreview.ai**） |
 | [cluster-hpc.md](recommendations/cluster-hpc.md) | optional | SLURM 模式、free-tier 规则、HPC 集群 rsync 约定 |
+| [reference-projects.md](recommendations/reference-projects.md) | optional | 值得学习的 standalone demo / template 项目（如 **`mykonos-island-voxels`** —— 零依赖 Canvas 2D 等距岛屿生成器，painterly 资产、分层缓存渲染、触屏 UI） |
 | [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always（查询） | apt 包参考表——绝不自动安装 |
 | [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always（查询） | VS Code 扩展参考表——绝不自动安装 |
 
