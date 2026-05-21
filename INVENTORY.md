@@ -89,7 +89,7 @@ See [`hooks/README.md`](hooks/README.md) for install instructions.
 
 ## Recommendations
 
-✅ 14 active files + 2 reference tables + index README. Initial 12 populated in P5 (2026-04-29); 2 added 2026-05-21 from user-level frontend resource bank + new tooling notes. Existing files updated with new entries (Chakra UI, anime.js, useanimations, itshover, HyperFrames, math-curve-loaders, React Native motion, yesicon.app, svgl.app, MLflow + W&B + ClearML).
+✅ 15 active files + 2 reference tables + index README. Initial 12 populated in P5 (2026-04-29); 3 added 2026-05-21 (ai-coding-tools, cluster-hpc, reference-projects). Existing files updated with new entries (Chakra UI, anime.js, useanimations, itshover, HyperFrames, math-curve-loaders, React Native motion, yesicon.app, svgl.app, MLflow + W&B + ClearML).
 
 | File | Context | Coverage |
 |---|---|---|
@@ -107,6 +107,7 @@ See [`hooks/README.md`](hooks/README.md) for install instructions.
 | [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21-category ML skill stack incl. `0-autoresearch-skill` meta-orchestrator |
 | [ai-coding-tools.md](recommendations/ai-coding-tools.md) | optional | Spec-driven scaffolding (**OpenSpec**) + paper review (**paperreview.ai**) |
 | [cluster-hpc.md](recommendations/cluster-hpc.md) | optional | SLURM patterns, free-tier rules, rsync conventions for HPC clusters |
+| [reference-projects.md](recommendations/reference-projects.md) | optional | Standalone demos / template projects to study (e.g. `mykonos-island-voxels` — zero-dependency Canvas 2D isometric builder with painterly assets, layered cache rendering, touch-first UI) |
 | [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always (lookup) | apt-installed packages — knowledge table only, never auto-install |
 | [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always (lookup) | VS Code extensions — knowledge table only, CC-friendly defaults flagged |
 

@@ -15,7 +15,7 @@
 - [The 13 workflow rules](#the-13-workflow-rules)
 - [The 7 reusable skills](#the-7-reusable-skills)
 - [The 2 hook recipes](#the-2-hook-recipes)
-- [Recommendations (14 curated lists)](#recommendations-14-curated-lists)
+- [Recommendations (15 curated lists)](#recommendations-15-curated-lists)
 - [Project templates](#project-templates)
 - [The setup skill `/init-claude-config`](#the-setup-skill-init-claude-config)
 - [For maintainers](#for-maintainers)
@@ -178,7 +178,7 @@ Each ships as `README.md` (what / why / install / variants) + `settings.snippet.
 | [`ruff-format-on-edit`](hooks/ruff-format-on-edit/README.md) | `PostToolUse` | `Write\|Edit` | research-pkg / Python | Auto-format `*.py` with ruff after every Claude edit |
 | [`jq-validate-json`](hooks/jq-validate-json/README.md) | `PostToolUse` | `Write\|Edit` | static-site / JSON-config | Block next tool call if Claude wrote invalid JSON to `*/locales/*.json` or `*/data/*.json` |
 
-## Recommendations (14 curated lists)
+## Recommendations (15 curated lists)
 
 Each list has agent-executable install commands, context tags, and "why use this" rationale.
 
@@ -198,6 +198,7 @@ Each list has agent-executable install commands, context tags, and "why use this
 | [orchestra-ml-skills.md](recommendations/orchestra-ml-skills.md) | ml-research | 21-category ML skill stack incl. `0-autoresearch-skill` meta-orchestrator |
 | [ai-coding-tools.md](recommendations/ai-coding-tools.md) | optional | Spec-driven scaffolding (**OpenSpec**) + paper review (**paperreview.ai**) |
 | [cluster-hpc.md](recommendations/cluster-hpc.md) | optional | SLURM patterns, free-tier rules, rsync conventions for HPC clusters |
+| [reference-projects.md](recommendations/reference-projects.md) | optional | Standalone demos / template projects to study (e.g. **`mykonos-island-voxels`** — zero-dependency Canvas 2D isometric builder with painterly assets, layered cache rendering, touch-first UI) |
 | [reference/apt-packages.md](recommendations/reference/apt-packages.md) | always (lookup) | Apt packages reference table — never auto-install |
 | [reference/vscode-extensions.md](recommendations/reference/vscode-extensions.md) | always (lookup) | VS Code extensions reference table — never auto-install |
 

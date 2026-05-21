@@ -34,6 +34,7 @@ The `setup/init-claude-config` skill (P8) does this composition automatically ba
 | [orchestra-ml-skills.md](orchestra-ml-skills.md) | ml-research | 21-category ML skill stack incl. `0-autoresearch-skill` meta-orchestrator |
 | [ai-coding-tools.md](ai-coding-tools.md) | optional | Spec-driven scaffolding (OpenSpec) + paper review (paperreview.ai) |
 | [cluster-hpc.md](cluster-hpc.md) | optional | SLURM patterns, free-tier rules, rsync conventions for HPC clusters |
+| [reference-projects.md](reference-projects.md) | optional | Standalone demos / template projects worth studying for technique (Canvas 2D isometric, painterly asset pipelines, touch-first UI, …) |
 
 ## Reference tables (no auto-install)
 
