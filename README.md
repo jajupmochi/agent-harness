@@ -12,7 +12,7 @@
 - [What this is](#what-this-is)
 - [Quick Start](#quick-start)
 - [Repository structure](#repository-structure)
-- [The 13 workflow rules](#the-13-workflow-rules)
+- [The 14 workflow rules](#the-14-workflow-rules)
 - [The 7 reusable skills](#the-7-reusable-skills)
 - [The 2 hook recipes](#the-2-hook-recipes)
 - [Recommendations (15 curated lists)](#recommendations-15-curated-lists)
@@ -102,13 +102,13 @@ claude-config/
 │   ├── PHILOSOPHY.md / .zh.md        ← the "why" behind the rules
 │   ├── CONSUMPTION.md / .zh.md       ← three downstream consumption modes
 │   └── CONTRIBUTING.md               ← how to add new content
-├── rules/                            ← 9 workflow rules + index
+├── rules/                            ← workflow rules + index
 │   └── <rule-name>/RULE.md + snippet.md
-├── skills/                           ← 5 general skills + index
+├── skills/                           ← general skills + index
 │   └── general/<skill-name>/SKILL.md
 ├── hooks/                            ← 2 hook recipes + index
 │   └── <hook-name>/{README.md, settings.snippet.json}
-├── recommendations/                  ← 12 active lists + 2 reference tables
+├── recommendations/                  ← recommendation lists + reference tables
 │   ├── cc-plugins.md
 │   ├── cc-marketplaces-and-skill-bundles.md
 │   ├── cli-tools.md
@@ -135,7 +135,7 @@ claude-config/
     └── plugin.json                   ← plugin manifest
 ```
 
-## The 13 workflow rules
+## The 14 workflow rules
 
 Each ships as `RULE.md` (full content, rationale, examples, exceptions) + `snippet.md` (drop-in for downstream `CLAUDE.md` via `@import`).
 
@@ -154,6 +154,7 @@ Each ships as `RULE.md` (full content, rationale, examples, exceptions) + `snipp
 | [`always-on-verification`](rules/always-on-verification/RULE.md) | research-pkg | Before any code / test / results claim, invoke `code-verifier` + `research-critic` |
 | [`autorun-mode`](rules/autorun-mode/RULE.md) | personal | "autorun" / "全力跑" / "think a lot" + scope → higher-autonomy cadence + multi-pass review + branch hygiene |
 | [`multi-round-redesign`](rules/multi-round-redesign/RULE.md) | ui-project | N-round UI redesign protocol with date-stamped outputs + per-round lens discipline + final spec lock |
+| [`latex-edit-policy`](rules/latex-edit-policy/RULE.md) | research-pkg | Editing `.tex`/`.sty`/`.cls`/`.bib`: hard fixes direct; soft (content) edits comment-don't-delete with `% [orig YYYY-MM-DD]` inline backup |
 
 ## The 7 reusable skills
 

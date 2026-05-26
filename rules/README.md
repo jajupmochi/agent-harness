@@ -36,6 +36,7 @@ The `setup/init-claude-config` skill (P8) does this composition automatically ba
 | [`always-on-verification`](always-on-verification/RULE.md) | research-pkg | Before any code / test / results claim, invoke `code-verifier` (artifact authenticity) and/or `research-critic` (inferential soundness) |
 | [`autorun-mode`](autorun-mode/RULE.md) | personal | When user says "autorun" / "全力跑" / "think a lot" + scope: shift to higher-autonomy cadence with multi-pass review + branch hygiene |
 | [`multi-round-redesign`](multi-round-redesign/RULE.md) | ui-project | N-round UI redesign protocol with date-stamped `00-plan.md` + `round-N.html`/`.png`/`.notes.md` + final spec lock + production-lock round |
+| [`latex-edit-policy`](latex-edit-policy/RULE.md) | research-pkg | When editing `.tex`/`.sty`/`.cls`/`.bib`: hard fixes direct, soft (content) edits comment-don't-delete with `% [orig YYYY-MM-DD]` inline backup |
 
 ## Scope tags
 

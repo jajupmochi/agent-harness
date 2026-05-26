@@ -35,7 +35,7 @@ See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) and README's "Build history" for de
 
 ## Rules
 
-✅ 13 rules + index README. Initial 9 populated in P2 (2026-04-29); 4 added 2026-05-21 from global `~/.claude/CLAUDE.md` evolution.
+✅ 14 rules + index README. Initial 9 populated in P2 (2026-04-29); 5 added 2026-05-21 from global `~/.claude/CLAUDE.md` evolution (end-of-turn-marker, always-on-verification, autorun-mode, multi-round-redesign, latex-edit-policy).
 
 | Rule | Scope | One-line |
 |---|---|---|
@@ -52,6 +52,7 @@ See [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md) and README's "Build history" for de
 | [`always-on-verification`](rules/always-on-verification/RULE.md) | research-pkg | Before any code / test / results claim, invoke `code-verifier` (artifact authenticity) and/or `research-critic` (inferential soundness) |
 | [`autorun-mode`](rules/autorun-mode/RULE.md) | personal | When user says "autorun" / "全力跑" / "think a lot" + scope: higher-autonomy cadence + multi-pass review + branch hygiene |
 | [`multi-round-redesign`](rules/multi-round-redesign/RULE.md) | ui-project | N-round UI redesign protocol with date-stamped `00-plan.md` + `round-N.html`/`.png`/`.notes.md` + final spec lock + production-lock round |
+| [`latex-edit-policy`](rules/latex-edit-policy/RULE.md) | research-pkg | When editing `.tex`/`.sty`/`.cls`/`.bib`: hard fixes direct; soft (content) edits comment-don't-delete with `% [orig YYYY-MM-DD]` inline backup (overrides output-brevity for LaTeX content) |
 
 See [`rules/README.md`](rules/README.md) for usage details and scope-tag definitions.
 

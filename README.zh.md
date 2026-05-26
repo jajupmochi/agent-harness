@@ -12,7 +12,7 @@
 - [这是什么](#这是什么)
 - [快速上手](#快速上手)
 - [仓库结构](#仓库结构)
-- [13 条工作流规则](#13-条工作流规则)
+- [14 条工作流规则](#14-条工作流规则)
 - [7 个可复用技能](#7-个可复用技能)
 - [2 个钩子配方](#2-个钩子配方)
 - [推荐清单（15 类）](#推荐清单15-类)
@@ -102,13 +102,13 @@ claude-config/
 │   ├── PHILOSOPHY.md / .zh.md        ← 规则背后的"为什么"
 │   ├── CONSUMPTION.md / .zh.md       ← 三种下游消费方式
 │   └── CONTRIBUTING.md               ← 如何新增内容
-├── rules/                            ← 9 条工作流规则 + 索引
+├── rules/                            ← 工作流规则 + 索引
 │   └── <rule-name>/RULE.md + snippet.md
-├── skills/                           ← 5 个通用技能 + 索引
+├── skills/                           ← 通用技能 + 索引
 │   └── general/<skill-name>/SKILL.md
 ├── hooks/                            ← 2 个钩子配方 + 索引
 │   └── <hook-name>/{README.md, settings.snippet.json}
-├── recommendations/                  ← 12 个 active 清单 + 2 个 reference 表
+├── recommendations/                  ← 推荐清单 + reference 表
 │   ├── cc-plugins.md
 │   ├── cc-marketplaces-and-skill-bundles.md
 │   ├── cli-tools.md
@@ -134,7 +134,7 @@ claude-config/
     └── plugin.json                   ← Plugin manifest
 ```
 
-## 9 条工作流规则
+## 14 条工作流规则
 
 每条规则有 `RULE.md`（完整内容、rationale、例子、例外）+ `snippet.md`（下游 `CLAUDE.md` 通过 `@import` 引入的紧凑版）。
 
@@ -153,6 +153,7 @@ claude-config/
 | [`always-on-verification`](rules/always-on-verification/RULE.md) | research-pkg | 任何 code / test / 结果声明前调用 `code-verifier` + `research-critic` |
 | [`autorun-mode`](rules/autorun-mode/RULE.md) | personal | "autorun" / "全力跑" / "think a lot" + scope → 高自主 cadence + 多轮 review + 分支卫生 |
 | [`multi-round-redesign`](rules/multi-round-redesign/RULE.md) | ui-project | N 轮 UI 重设计协议——日期戳子目录里 `00-plan.md` + `round-N.html`/`.png` + 最终 spec lock |
+| [`latex-edit-policy`](rules/latex-edit-policy/RULE.md) | research-pkg | 编辑 `.tex`/`.sty`/`.cls`/`.bib`：hard fix 直接改；soft（内容）改动注释保留原文不删，打 `% [orig YYYY-MM-DD]` 内联备份 |
 
 ## 7 个可复用技能
 

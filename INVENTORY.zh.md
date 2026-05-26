@@ -35,7 +35,7 @@
 
 ## Rules
 
-✅ 13 条规则 + 索引 README。初始 9 条在 P2 填充（2026-04-29）；4 条新增于 2026-05-21（从全局 `~/.claude/CLAUDE.md` 演化提取）。
+✅ 14 条规则 + 索引 README。初始 9 条在 P2 填充（2026-04-29）；5 条新增于 2026-05-21（从全局 `~/.claude/CLAUDE.md` 演化提取：end-of-turn-marker、always-on-verification、autorun-mode、multi-round-redesign、latex-edit-policy）。
 
 | 规则 | Scope | 一句话 |
 |---|---|---|
@@ -52,6 +52,7 @@
 | [`always-on-verification`](rules/always-on-verification/RULE.md) | research-pkg | 任何 code / test / 结果声明前，调用 `code-verifier`（artifact 真实性）+ `research-critic`（推理链可靠性） |
 | [`autorun-mode`](rules/autorun-mode/RULE.md) | personal | 用户说 "autorun" / "全力跑" / "think a lot" + scope 时：高自主 cadence + 多轮 review + 分支卫生 |
 | [`multi-round-redesign`](rules/multi-round-redesign/RULE.md) | ui-project | N 轮 UI 重设计协议——日期戳子目录里 `00-plan.md` + 每轮 `round-N.html`/`.png`/`.notes.md` + 最终 spec lock + production-lock 轮 |
+| [`latex-edit-policy`](rules/latex-edit-policy/RULE.md) | research-pkg | 编辑 `.tex`/`.sty`/`.cls`/`.bib` 时：hard fix 直接改；soft（内容）改动注释保留原文不删，打 `% [orig YYYY-MM-DD]` 内联备份（LaTeX 内容编辑场景覆盖 output-brevity） |
 
 详见 [`rules/README.md`](rules/README.md)（用法说明 + scope 标签定义）。
 
