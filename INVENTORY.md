@@ -58,7 +58,7 @@ See [`rules/README.md`](rules/README.md) for usage details and scope-tag definit
 
 ## Skills
 
-✅ 7 general-bucket skills + index README. Initial 5 populated in P4 (2026-04-29); 2 added 2026-05-21 from user-level always-on gates.
+✅ 8 general-bucket skills + index README. Initial 5 populated in P4 (2026-04-29); 2 added 2026-05-21 from user-level always-on gates; 1 added 2026-05-31 (`system-cleanup`, distilled from a real disk-cleanup session).
 
 | Skill | Bucket | Trigger | Purpose |
 |---|---|---|---|
@@ -69,6 +69,7 @@ See [`rules/README.md`](rules/README.md) for usage details and scope-tag definit
 | [`privacy-redact`](skills/general/privacy-redact/SKILL.md) | general | `/privacy-redact <file>` | Scan + redact usernames, absolute paths, secrets, codenames |
 | [`code-verifier`](skills/general/code-verifier/SKILL.md) | general | auto / `/code-verifier` | Three-layer gate before any "tests pass" / "code works" / "results show X" claim — detects FAKE-RUN patterns |
 | [`research-critic`](skills/general/research-critic/SKILL.md) | general | auto / `/research-critic` | Six-question audit on every research claim (falsifiability, design, fair comparison, leakage, proportional conclusion, alternatives) |
+| [`system-cleanup`](skills/general/system-cleanup/SKILL.md) | general | auto / `/system-cleanup` | Diagnose a full Linux disk (df/du/dpkg/snap/docker) → prioritized, risk-tagged cleanup; safe user-level deletions + sudo items handed to the user; covers VS Code WebStorage bloat, old kernels, NTFS data-disk write failures. Ships `cleanup.sh`. |
 
 Future buckets (populated in P7 with templates):
 
