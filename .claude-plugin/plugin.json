@@ -28,6 +28,7 @@
     "skills/general/long-running-tasks",
     "skills/general/verify-visual",
     "skills/general/privacy-redact",
+    "skills/general/autoresearch-toolfinder",
     "setup/init-claude-config"
   ],
   "rules": [
