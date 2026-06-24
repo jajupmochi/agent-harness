@@ -91,7 +91,10 @@ reason="## review-gate: automatic review of this turn's code
 - **Logic & edge cases** (form: manual reasoning) — off-by-one, error handling, does it do what was asked.
 - **Security** (form: pattern + reasoning) — injection, secrets/keys, unsafe exec/eval, path traversal, OWASP.
 - **Fake-run / over-claims** (tool: \`code-verifier\` skill) — invoke it on any \"it works / tests pass / results show X\" claim.
-- **Test-gap** (form: coverage reasoning) — are the changed units covered by tests?"
+- **Test-gap** (form: coverage reasoning) — are the changed units covered by tests?
+- **Minimal change / blast-radius** (form: diff scope) — is the change minimal? does it avoid touching unrelated code or hot paths?
+- **Modularity** (form: structure) — minimal function/module granularity, reusable, not a conflated block.
+- **Commit & doc completeness** (form: hygiene) — small named commit(s); docstrings/docs updated for what changed."
 
 if [ "$has_module" = "yes" ]; then
   reason="$reason

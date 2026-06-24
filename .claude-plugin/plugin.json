@@ -29,6 +29,7 @@
     "skills/general/verify-visual",
     "skills/general/privacy-redact",
     "skills/general/autoresearch-toolfinder",
+    "skills/general/autopilot",
     "setup/init-claude-config"
   ],
   "rules": [
