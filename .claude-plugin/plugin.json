@@ -44,7 +44,8 @@
   ],
   "hooks": [
     "hooks/ruff-format-on-edit",
-    "hooks/jq-validate-json"
+    "hooks/jq-validate-json",
+    "hooks/review-gate"
   ],
   "templates": [
     "templates/research-package-py",
