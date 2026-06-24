@@ -9,7 +9,7 @@ Full landscape, analysis, and tool comparison: [`docs/ai-code-review/`](../../do
 | Tier | Hook | Script | Behavior |
 |---|---|---|---|
 | T0 | `PostToolUse(Write\|Edit)` | `scripts/track.sh` | logs each changed file per session (fail-open) |
-| T1 | `Stop` | `scripts/gate.sh` | on code change: run available linters (ruff/shellcheck) + **force one structured review pass** (logic / security / fake-run via `code-verifier` / tests); `{"decision":"block","reason":…}` until done. Loop-guarded (≤3 rounds), fail-open |
+| T1 | `Stop` | `scripts/gate.sh` | on code change: run linters (ruff/shellcheck) + force one review round whose feedback is a **Markdown report** (names each review form + tool; mandates **per-function/module AI review by default** when a function/module changed) and requires findings as a **markdown list** in-session; `{"decision":"block"}` until lint-clean + reviewed. Loop-guarded (≤3), fail-open. **Token note:** per-module AI review every code-turn costs more tokens than lint-only — see [`docs/ai-code-review`](../../docs/ai-code-review/README.md#5-deployment-all-sessions--every-edit--never-skip). |
 | T2 | `PreToolUse(Bash)` git commit/push | `scripts/precommit.sh` | `exit 2` to block commit/push while this turn's changes haven't passed T1 |
 | STRICT (opt-in) | `Stop` `type:"agent"` | `strict.snippet.json` | model-judged deep review of the diff (experimental, adds latency) |
 

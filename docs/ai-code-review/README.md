@@ -73,12 +73,16 @@ Refs: [hooks guide](https://code.claude.com/docs/en/hooks-guide) · [security-gu
 | Tier | Hook event | Action | Blocks? | Cost |
 |---|---|---|---|---|
 | **T0** | `PostToolUse(Edit\|Write)` → `track.sh` | log each changed file per session; (`.py` lint already auto-applied by `ruff-format-on-edit`) | no | negligible |
-| **T1** | `Stop` → `gate.sh` | on code change: run available linters (ruff/shellcheck) + force ≥1 structured review pass (logic / security / fake-run via `code-verifier` / tests). `{"decision":"block","reason":…}` until done. Loop-guarded (≤3 rounds), fail-open | **yes** | one extra round per code-turn |
+| **T1** | `Stop` → `gate.sh` | on code change: run linters (ruff/shellcheck) + force one review round whose feedback is a **Markdown report** naming each review form + the tool it uses, and — when a minimal function/module changed — mandating **per-function/module AI review (DEFAULT ON)**; Claude must present findings as a **markdown list** in-session. `{"decision":"block"}` until lint-clean + reviewed. Loop-guarded (≤3), fail-open | **yes** | one round + per-module review every code-turn (token cost, see note) |
 | **T2** | `PreToolUse(Bash)` (`git commit/push`) → `precommit.sh` | deny commit/push while changes haven't passed T1 (`exit 2`) | **yes** | negligible |
 | **STRICT** (opt-in) | `Stop` → `type:"agent"` hook | model-judged deep review of the diff (reads files, runs tests). Experimental + adds latency | yes | higher |
 | **T3** (delegated) | — | PR-level: `/code-review` (+ultra) + CodeRabbit/Greptile + security GH Action | — | — |
 
 Design principles applied: full-context (project linters + changed files), low false-positive (only blocks on real lint failures or the mandatory once-per-changeset review), and *enforced not advisory*.
+
+### Cost / token note (important)
+
+The default **per-function/module AI review** (T1) makes the agent re-read and reason about each changed function/module on **every code-changing turn** and write up findings — this is **noticeably more token-expensive** than lint-only gating. It is a deliberate trade: spend tokens to catch the logic/security/contract bugs that linters miss. To spend less: rely on T0 lint + T2 commit-gate only, narrow the watched file types, or raise the trivial-change threshold. The optional STRICT `type:"agent"` Stop hook costs **even more** (spawns a separate reviewing subagent each turn).
 
 ## 5. Deployment (all sessions / every edit / never skip)
 
