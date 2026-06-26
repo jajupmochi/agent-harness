@@ -45,6 +45,7 @@
 | [`plugin-preflight`](rules/plugin-preflight/RULE.md) | universal | 调用插件 / skill / 命令前先验证已安装且未弃用 |
 | [`ui-iteration-loop`](rules/ui-iteration-loop/RULE.md) | ui-project | 自动 8 轮 UI 迭代循环，配 chrome-devtools 截图与四轴自评 |
 | [`output-brevity`](rules/output-brevity/RULE.md) | personal | 不在末尾复述、不回显工具输出、优先 Edit 而非 Write |
+| [`human-readable-output`](rules/human-readable-output/RULE.md) | personal | 所有输出（聊天和文档）写成完整的人类句子和表格，不要电报体 AI 缩写；结构化信息优先用表格 |
 | [`tool-proactivity`](rules/tool-proactivity/RULE.md) | personal | 已安装的插件 / skill / MCP 匹配场景时主动调用（含若干"必须先确认"的例外） |
 | [`no-reread-files`](rules/no-reread-files/RULE.md) | personal | 信任本 session 内对文件内容的记忆；除非真的变了不再重读 |
 | [`bilingual-docs`](rules/bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` 双语文档约定（消费方 opt-in via `setup/init-claude-config`） |
