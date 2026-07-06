@@ -29,6 +29,7 @@ The `setup/init-claude-config` skill (P8) does this composition automatically ba
 | [`plugin-preflight`](plugin-preflight/RULE.md) | universal | Before invoking unfamiliar plugin / MCP / skill |
 | [`ui-iteration-loop`](ui-iteration-loop/RULE.md) | ui-project | When user provides a visual reference for UI work |
 | [`output-brevity`](output-brevity/RULE.md) | personal | All output — keep terse, no end-of-batch recap |
+| [`writing-style`](writing-style/RULE.md) | personal | De-AI prose tics. No hyphen-joined compound modifiers, no colon or semicolon opening a trailing clause, no filler emphasis words. Edit the user's own text minimally |
 | [`tool-proactivity`](tool-proactivity/RULE.md) | personal | Installed skills / plugins fire without asking |
 | [`no-reread-files`](no-reread-files/RULE.md) | personal | Trust in-session memory of file contents |
 | [`bilingual-docs`](bilingual-docs/RULE.md) | optional | `NAME.md` + `NAME.zh.md` convention for human-facing docs |
