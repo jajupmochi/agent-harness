@@ -26,11 +26,12 @@ def _run(argv, stdin=""):
 
 
 def run():
-    # privacy_scan unit checks
-    assert plib.privacy_scan("clean reusable prompt about dashboards") == []
-    assert any(l == "absolute home path" for l, _ in plib.privacy_scan("see /home/bob/x"))
-    assert any(l == "email address" for l, _ in plib.privacy_scan("mail me a@b.com"))
-    assert any(l == "project codename" for l, _ in plib.privacy_scan("the liulian-python repo"))
+    # privacy_scan unit checks (extra=[] so no local private-terms file leaks into the test)
+    assert plib.privacy_scan("clean reusable prompt about dashboards", extra=[]) == []
+    assert any(l == "absolute home path" for l, _ in plib.privacy_scan("see /home/bob/x", extra=[]))
+    assert any(l == "email address" for l, _ in plib.privacy_scan("mail me a@b.com", extra=[]))
+    # user-specific terms come from the caller / local file, not shipped literals:
+    assert any(l == "private term" for l, _ in plib.privacy_scan("reuse the ZZCODENAME brief", extra=["ZZCODENAME"]))
 
     with tempfile.TemporaryDirectory() as root:
         base = ["--root", root]
@@ -52,15 +53,22 @@ def run():
         assert rc == 1 and "REFUSED" in err and "absolute home path" in err
         assert not os.path.exists(os.path.join(root, "prompts", "bad-one.md")), "refused prompt not written"
 
-        # 3. refuse on email + on codename
+        # 3. refuse on email; and on a user-specific private term loaded from a LOCAL file (env-pointed)
         rc, _, err = _run(["add", *base, "--title", "E"], stdin="ping me at foo@bar.com\n")
         assert rc == 1 and "email" in err
-        rc, _, err = _run(["add", *base, "--title", "C"], stdin="reuse the AI_Mur4Cast prompt\n")
-        assert rc == 1 and "codename" in err
+        import tempfile as _tf
+        tf = os.path.join(root, "terms.txt")
+        open(tf, "w").write("# my private terms\nZZCODENAME\n")
+        os.environ["PLIB_PRIVATE_TERMS"] = tf
+        try:
+            rc, _, err = _run(["add", *base, "--title", "C"], stdin="reuse the ZZCODENAME prompt\n")
+            assert rc == 1 and "private term" in err, f"local private term must block: {err}"
 
-        # 4. private content in the TITLE is also caught
-        rc, _, err = _run(["add", *base, "--title", "linlin's prompt"], stdin="totally clean body\n")
-        assert rc == 1 and "username" in err
+            # 4. private content in the TITLE is also caught (term in title, clean body)
+            rc, _, err = _run(["add", *base, "--title", "ZZCODENAME playbook"], stdin="totally clean body\n")
+            assert rc == 1 and "private term" in err
+        finally:
+            del os.environ["PLIB_PRIVATE_TERMS"]
 
         # 5. scan command: exit 1 on private, 0 on clean
         rc, _, _ = _run(["scan"], stdin="/media/disk/x\n")

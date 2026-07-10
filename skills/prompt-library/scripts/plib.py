@@ -19,30 +19,38 @@ import os
 import re
 import sys
 
-# Heuristic privacy patterns (mirror the repo's CI privacy scan + privacy-redact skill).
+# Generic, non-personal privacy patterns (safe to ship). User-SPECIFIC private terms — your username, your
+# project codenames — are deliberately NOT hardcoded here (that would publish them, and this repo's own CI
+# privacy scan bans codename literals in content modules). Load those from a LOCAL, un-published file instead:
+# env PLIB_PRIVATE_TERMS=<path>, else ~/.config/agent-harness/private-terms.txt (one term per line, # comments).
 PRIVACY_PATTERNS = [
     (r"/home/[A-Za-z0-9._-]+", "absolute home path"),
     (r"/media/[A-Za-z0-9._-]+", "absolute media path"),
     (r"/mnt/[0-9a-fA-F-]{8,}", "absolute mnt uuid path"),
     (r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b", "email address"),
     (r"\b(sk-[A-Za-z0-9]{6,}|ghp_[A-Za-z0-9]{6,}|gho_[A-Za-z0-9]{6,}|github_pat_[A-Za-z0-9_]{6,})", "token-shaped string"),
-    (r"\blinlin\b", "username"),
 ]
-# Project codenames banned by the CI privacy scan.
-CODENAMES = ["liulian-python", "swiss-river-network-benchmark", "AI_Mur4Cast",
-             "local_research_agent", "local_translator", "antigravity_playground", "relax_app"]
 
 
-def privacy_scan(text):
-    """Return a list of (label, matched_snippet) for anything that looks private."""
+def _extra_terms():
+    src = os.environ.get("PLIB_PRIVATE_TERMS") or os.path.expanduser("~/.config/agent-harness/private-terms.txt")
+    if not os.path.isfile(src):
+        return []
+    with open(src, encoding="utf-8") as f:
+        return [ln.strip() for ln in f if ln.strip() and not ln.lstrip().startswith("#")]
+
+
+def privacy_scan(text, extra=None):
+    """Return a list of (label, matched_snippet) for anything that looks private.
+    `extra` (default: the local private-terms file) is a list of user-specific literal terms to also flag."""
     hits = []
     for pat, label in PRIVACY_PATTERNS:
         for m in re.finditer(pat, text):
             hits.append((label, m.group(0)))
     low = text.lower()
-    for c in CODENAMES:
-        if c.lower() in low:
-            hits.append(("project codename", c))
+    for term in (extra if extra is not None else _extra_terms()):
+        if term.lower() in low:
+            hits.append(("private term", term))
     return hits
 
 

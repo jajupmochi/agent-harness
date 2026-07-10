@@ -23,10 +23,18 @@ scenario, and made easy for a human to find and for an agent to reuse.
 
 ## Privacy gate (heuristic, not a guarantee)
 
-`add` and `scan` flag: absolute `/home` `/media` `/mnt` paths, emails, token-shaped strings
-(`sk-`/`ghp_`/`gho_`/`github_pat_`), the configured username, and the project codenames the repo's CI privacy
-scan bans. Matches in the body OR the title block the save. For anything it might miss, still review manually
-(pairs with the `privacy-redact` skill).
+`add` and `scan` flag GENERIC private content: absolute `/home` `/media` `/mnt` paths, emails, and
+token-shaped strings (`sk-`/`ghp_`/`gho_`/`github_pat_`). Matches in the body OR the title block the save.
+
+**User-specific terms** (your username, your project codenames) are deliberately NOT hardcoded in the tool —
+shipping them would publish them (and the repo's own CI privacy scan bans codename literals in content
+modules). Put them in a LOCAL, un-published file, one term per line, and the gate will also flag those:
+
+```
+export PLIB_PRIVATE_TERMS=~/.config/agent-harness/private-terms.txt   # else this default path is auto-used
+```
+
+For anything the heuristic misses, still review manually (pairs with the `privacy-redact` skill).
 
 ## Storage
 
