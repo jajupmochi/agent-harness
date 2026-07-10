@@ -39,6 +39,34 @@ a disk fills up. Do not ask permission to consult a skill; announce it in one li
 
 ---
 
+## 中文版(粘贴到任意 Claude Code 会话)
+
+```
+在本会话中安装并保持 "agent-harness" 这个 Claude Code 插件为最新,然后自动使用它的技能。
+用 Bash 工具依次执行,并汇报每步结果:
+
+1. 更新安装副本(不存在则克隆):
+   if [ -d ~/.claude/agent-harness/.git ]; then git -C ~/.claude/agent-harness pull --ff-only; \
+   else git clone https://github.com/jajupmochi/agent-harness ~/.claude/agent-harness; fi
+2. 清理旧版本残留(不存在也安全):
+   rm -f ~/.claude/skills/claude-config ~/.claude/skills/init-claude-config
+   claude plugin marketplace add ~/.claude/agent-harness 2>/dev/null || true
+3. 安装/刷新插件(重装即可拉取更新):
+   claude plugin uninstall agent-harness@agent-harness 2>/dev/null || true
+   claude plugin install agent-harness@agent-harness
+4. 去重——删掉会导致技能重复加载的每技能软链(保留"真目录",那是我自己的独立技能):
+   for s in ~/.claude/skills/*; do [ -L "$s" ] && readlink "$s" | grep -q agent-harness && rm "$s"; done
+5. 验证:claude plugin details agent-harness   # 期望:enabled、Skills (~20)、~2.0k always-on
+   claude plugin list | grep agent-harness
+
+然后告诉我:是否已 enabled、暴露了多少个技能,并说明它在【下一个会话】才完全生效(插件在会话启动时加载)。
+从本会话起,凡任务匹配就自动使用这些技能——例如 memory-flywheel(跨会话记忆)、code-verifier(声称测试通过前)、
+research-critic(写研究结论前)、task-relationship-analysis(3+ 步任务前)、privacy-redact(发布文件前)、
+system-cleanup(磁盘满时)。不必请求许可,用一句话说明后即执行。
+```
+
+---
+
 ## Notes
 
 - **Codex / opencode** are separate and not touched by this prompt. For Codex: `codex plugin add
