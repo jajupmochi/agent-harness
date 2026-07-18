@@ -15,6 +15,7 @@
 //   node scripts/actions-budget.mjs [repo-path] [options]
 //
 //   --plan <free|pro|team|enterprise>   included-minutes allowance to compare against (default free)
+//   --visibility <public|private>       state it offline instead of probing with --live (default private)
 //   --minutes-per-job <n>               duration assumption for the ESTIMATE column
 //   --pushes-per-day <n>                PR-branch pushes per day, for the monthly projection
 //   --merges-per-day <n>                merges to the default branch per day
@@ -809,7 +810,9 @@ export function analyzeRepo(repoPath, opts = {}) {
     add("warn", "over-allowance", `projected ${monthly.estimate} Linux-equivalent min/month exceeds the ${opts.plan ?? "free"} plan allowance of ${plan.includedMinutes}`, "(repo)");
   }
   if (files.length === 0) add("info", "no-workflows", "no .github/workflows/*.yml found; nothing runs remotely", "(repo)");
-  else add("info", "visibility-unknown", "these figures assume a private repository. Standard GitHub-hosted runners are free in public repositories, where the numbers are informational only. Run with --live to have gh report the actual visibility", "(repo)");
+  else if (opts.visibility === "public") add("info", "visibility-public", "you stated this repository is public: standard GitHub-hosted runners are free there, so every minute figure below is informational rather than billed", "(repo)");
+  else if (opts.visibility === "private") add("info", "visibility-private", "you stated this repository is private, so these minutes draw down the allowance of the account that OWNS the repo — a personal repo bills the personal account, an org repo bills the org at the org's plan", "(repo)");
+  else add("info", "visibility-unknown", "these figures assume a private repository. Standard GitHub-hosted runners are free in public repositories, where the numbers are informational only. Pass --visibility, or run with --live to have gh report the actual value", "(repo)");
 
   return {
     repo: resolve(repoPath), branch, featureBranch, plan: opts.plan ?? "free",
@@ -940,7 +943,7 @@ function parseArgs(argv) {
     const a = argv[i];
     if (!a.startsWith("--")) { o.positional.push(a); continue; }
     const key = a.slice(2);
-    const takesValue = ["plan", "minutes-per-job", "pushes-per-day", "merges-per-day", "branch", "rates", "fail-on"];
+    const takesValue = ["plan", "visibility", "minutes-per-job", "pushes-per-day", "merges-per-day", "branch", "rates", "fail-on"];
     if (takesValue.includes(key)) { o[key] = argv[++i]; continue; }
     o[key] = true;
   }
@@ -967,11 +970,15 @@ function main() {
   try { rates = loadRates(args.rates); }
   catch (e) { console.error(`cannot read rate card: ${e.message}`); process.exit(2); }
   if (!rates.plans[plan]) { console.error(`unknown --plan \`${plan}\` (known: ${Object.keys(rates.plans).join(", ")})`); process.exit(2); }
+  const visibility = args.visibility;
+  if (visibility !== undefined && !["public", "private"].includes(visibility)) {
+    console.error(`unknown --visibility \`${visibility}\` (known: public, private)`); process.exit(2);
+  }
 
   let analysis;
   try {
     analysis = analyzeRepo(repoPath, {
-      rates, plan,
+      rates, plan, visibility,
       branch: args.branch,
       minutesPerJob: num(args["minutes-per-job"], "minutes-per-job"),
       pushesPerDay: num(args["pushes-per-day"], "pushes-per-day"),

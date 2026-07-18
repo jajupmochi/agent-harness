@@ -12,6 +12,7 @@
 - [Verdicts on the five candidate ideas](#verdicts-on-the-five-candidate-ideas)
 - [The tiered scheme](#the-tiered-scheme)
 - [Which profile fits your repository](#which-profile-fits-your-repository)
+- [Which account is being billed](#which-account-is-being-billed)
 - [Worked example with real numbers](#worked-example-with-real-numbers)
 - [Self-hosted runners](#self-hosted-runners)
 - [Running workflows locally with act](#running-workflows-locally-with-act)
@@ -160,6 +161,51 @@ The right answer differs by repository, so pick a profile rather than applying o
 | **D. Private repository needing macOS or Windows regularly** | Desktop or mobile targets | Tiers 0 to 2 Linux only, all non-Linux work in tier 3, then evaluate a self-hosted macOS box | macOS is where self-hosted pays back fastest |
 
 Profile C's merge queue is a genuine trade rather than a saving. Every pull request runs checks on its own branch and then again in the merge group, so you pay roughly twice per change in exchange for never merging an untested combination. It is worth it when a broken default branch is expensive, and not worth it on a repository with three merges a week.
+
+## Which account is being billed
+
+The allowance is attached to the **account that owns the repository**, not to the person who pushed.
+A personal repository draws on the personal account's allowance; a repository owned by an organisation
+draws on that organisation's, at that organisation's plan. Someone with a personal Pro plan pushing to
+an organisation's Free repository gets the organisation's Free allowance, not their own Pro one.
+
+Three things follow, and they are why one global answer to "should I self-host" does not exist.
+
+1. **Two accounts means two separate budgets.** Exhausting one does not touch the other, and a change
+   that helps one does nothing for the other.
+2. **Visibility decides whether minutes are billed at all.** Standard hosted runners are free on public
+   repositories regardless of plan. On a private repository the same job draws down the allowance and
+   then bills.
+3. **Therefore the correct scheme differs per repository**, not per person. A public repository needs
+   none of this work. A private repository on a Free organisation is where every lever in this document
+   earns its keep, and where a self-hosted runner stops being pointless and starts saving real money.
+
+Work out which case each repository is in before applying anything here:
+
+```bash
+# Owner and visibility, per repository
+gh repo view <owner>/<repo> --json nameWithOwner,visibility,isPrivate
+
+# Actual minutes used against the allowance, per account. The first is your personal account;
+# the second is an organisation you belong to. They are separate ledgers.
+gh api /users/<your-login>/settings/billing/actions
+gh api /orgs/<org>/settings/billing/actions
+
+# Which plan each account is on, which sets the allowance in the table above
+gh api /users/<your-login> --jq .plan.name
+gh api /orgs/<org> --jq .plan.name
+```
+
+| Repository | Owner | Visibility | Minutes billed? | What to apply |
+|---|---|---|---|---|
+| Personal, public | personal account | public | No | Nothing here. Tune for feedback latency instead |
+| Personal, private | personal account | private | Yes, against the personal allowance | The full tiered scheme |
+| Organisation, public | organisation | public | No | Nothing here |
+| Organisation, private | organisation | private | Yes, against the ORGANISATION's allowance | The full tiered scheme, and self-hosted becomes worth costing out |
+
+`actions-budget.mjs` assumes a private repository when run offline, because reporting a cost that turns
+out to be free is safer than reporting free minutes that are actually billed. Pass `--visibility public`
+to state it, or `--live` to have `gh` report the real value.
 
 ## Worked example with real numbers
 

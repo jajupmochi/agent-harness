@@ -396,5 +396,24 @@ console.log("\n10. command line interface");
 
 rmSync(tmp, { recursive: true, force: true });
 
+// --visibility must actually change the report, not just be accepted. A flag that validates its input
+// and then changes nothing is a dead knob: it reads as a working control and silently is not.
+{
+  const run = (extra) => spawnSync(process.execPath, [SCRIPT, ROOT, ...extra], { encoding: "utf8" });
+  const dflt = run([]);
+  const pub = run(["--visibility", "public"]);
+  const priv = run(["--visibility", "private"]);
+  chkTrue("no --visibility -> report states it assumes private", /visibility-unknown/.test(dflt.stdout));
+  chkTrue("--visibility public reaches the findings", /visibility-public/.test(pub.stdout));
+  chkTrue("public says the minutes are not billed", /informational rather than billed/.test(pub.stdout));
+  chkTrue("--visibility private reaches the findings", /visibility-private/.test(priv.stdout));
+  chkTrue("private names whose allowance is drawn down", /account that OWNS the repo/.test(priv.stdout));
+  chkTrue("the two values produce different reports", pub.stdout !== priv.stdout);
+  const bad = run(["--visibility", "sideways"]);
+  chk("an unknown visibility exits 2", bad.status, 2);
+  chkTrue("the error lists the accepted values", /known: public, private/.test(bad.stderr));
+}
+
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail === 0 ? 0 : 1);
