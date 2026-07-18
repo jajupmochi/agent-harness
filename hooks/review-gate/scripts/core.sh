@@ -127,9 +127,11 @@ fi
 reason="$reason
 
 **Present your review IN CHINESE** (unless the project is English-language), in its OWN block fenced by a
-THICK \`━\` bar — a bounded \`━\` bar on its own line, then \`**review-gate 审查**\` on its own line, then a
-\`━\` bar, then the body, then a closing \`━\` bar. NOT inline \`━━━ kw ━━━\` (wraps badly on a phone), NOT
-raw text sprawling after your summary.
+THICK \`━\` bar. Open it with a markdown HEADING, not a bold line: a terminal markdown renderer colours
+headings, and colour is what makes the block findable when scrolling back through a long turn. So: a
+bounded \`━\` bar on its own line, then \`## 🔍 review-gate 审查\` on its own line, then a \`━\` bar, then
+the body, then a closing \`━\` bar. NOT inline \`━━━ kw ━━━\` (wraps badly on a phone), NOT raw text
+sprawling after your summary.
 
 **The body is a MARKDOWN TABLE, one row per changed function/module — never prose bullets.** Prose at this
 density is unreadable. Keep every cell to one short clause and push anything longer into the numbered
@@ -145,7 +147,8 @@ bash \"\$HOME/.claude/hooks/review-gate/statsbar.sh\" --format md --title '本�
 Full shape:
 \`\`\`md
 ━━━━━━━━━━━━━━━━
-**review-gate 审查**
+## 🔍 review-gate 审查
+
 ━━━━━━━━━━━━━━━━
 
 <statsbar output here>
