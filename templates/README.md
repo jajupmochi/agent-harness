@@ -32,6 +32,7 @@ The template's `TEMPLATE_README.md` documents the specific substitutions per tem
 |---|---|---|
 | [research-package-py/](research-package-py/TEMPLATE_README.md) | Python research package (uv + ruff + pytest) | CLAUDE.template.md, pyproject.template.toml (with research extras), .gitignore, .claude/settings.template.json (ruff format hook), .claude/skills/verify/ |
 | [personal-cite-static/](personal-cite-static/TEMPLATE_README.md) | Static personal academic site (HTML/CSS/JS, i18n) | CLAUDE.template.md (bilingual + Master TOC + visual verification rules), index.template.html (i18n-aware), locales/{en,zh}.template.json, .claude/settings.template.json (jq JSON validity hook), .claude/skills/{preview,verify-visual,i18n-sync}/ |
+| [actions-frugal-ci/](actions-frugal-ci/TEMPLATE_README.md) | Any repo with GitHub Actions (add-on, not a project starter) | Four tier CI that keeps Actions minutes low: `git-hooks/{pre-commit,pre-push}.template.sh` (both refuse to run half-substituted), `lefthook.template.yml`, `.github/workflows/{ci,heavy,_checks.reusable}.template.yml`. Rationale: [`recommendations/github-actions-frugality.md`](../recommendations/github-actions-frugality.md) |
 
 ## Adding a new template
 

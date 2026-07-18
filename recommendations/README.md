@@ -28,6 +28,7 @@ The `setup/init-agent-harness` skill (P8) does this composition automatically ba
 | [js-animation-and-3d.md](js-animation-and-3d.md) | ui-project + 3d-or-animation | motion, gsap, anime.js, lottie-react, tailwindcss-animate, math-curve-loaders; three, R3F, drei, mediapipe; animated icon catalogues (itshover, useanimations); HTML→video (HyperFrames, Remotion); React Native motion |
 | [js-build-test-style.md](js-build-test-style.md) | ui-project | vite, next, electron, vitest, playwright, storybook, tailwindcss + ecosystem, prettier |
 | [js-state-data.md](js-state-data.md) | ui-project | pinia, zustand, swr, vueuse, vue-i18n, vue-router, next-themes |
+| [github-actions-frugality.md](github-actions-frugality.md) | always (any repo with workflows) | Keeping remote Actions minutes low: verified 2026 billing facts and rates, ranked levers, a four tier local-to-remote scheme with profiles, self-hosted runner break-even and security, `act` limits, pre-push gates. Ships `templates/actions-frugal-ci/` + `scripts/actions-budget.mjs` |
 | [web-auditing.md](web-auditing.md) | static-site / web-perf | chrome-devtools MCP (default), lighthouse CLI, lhci, pa11y, axe-core |
 | [image-video-pdf.md](image-video-pdf.md) | image-or-video-work | sharp, svgo, imagemin, ffmpeg (via apt), puppeteer |
 | [docs-tools.md](docs-tools.md) | docs-site | mkdocs + material, ghp-import, latexmk (via apt) |
