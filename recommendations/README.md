@@ -14,9 +14,11 @@
 
 When an agent (or human) reads these files, the goal is: pick the relevant subset for the current project's context and run the install commands.
 
-The `setup/init-agent-harness` skill (P8) does this composition automatically based on project type. For manual use, browse the index below.
+The `setup/init-agent-config` skill (P8) does this composition automatically based on project type. For manual use, browse the index below.
 
 ## Active recommendations
+
+19 active lists here plus the 2 reference tables below, which together are `inventory.recommendations` in [`adapters/manifest.source.json`](../adapters/manifest.source.json).
 
 | File | Context | Coverage |
 |---|---|---|
@@ -37,6 +39,8 @@ The `setup/init-agent-harness` skill (P8) does this composition automatically ba
 | [ai-coding-tools.md](ai-coding-tools.md) | optional | Spec-driven scaffolding (OpenSpec) + paper review (paperreview.ai) |
 | [cluster-hpc.md](cluster-hpc.md) | optional | SLURM patterns, free-tier rules, rsync conventions for HPC clusters |
 | [reference-projects.md](reference-projects.md) | optional | Standalone demos / template projects worth studying for technique (Canvas 2D isometric, painterly asset pipelines, touch-first UI, …) |
+| [codex-marketplaces.md](codex-marketplaces.md) | codex | Third-party marketplaces, skill bundles, and curated collections for Codex |
+| [codex-plugins.md](codex-plugins.md) | codex | Plugins, MCP servers, and external tools approved for Codex; installed ones auto-invoke per the `tool-proactivity` rule |
 
 ## Reference tables (no auto-install)
 

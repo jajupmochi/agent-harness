@@ -1,7 +1,7 @@
 {
   "name": "agent-harness",
   "version": "0.1.0",
-  "description": "Curated Claude Code configuration: workflow rules, skills, hooks, plugin recommendations, tooling preferences, and project templates. Run /init-agent-harness in any project to scaffold it.",
+  "description": "Curated Claude Code configuration: workflow rules, skills, hooks, plugin recommendations, tooling preferences, and project templates. Run /init-agent-config in any project to scaffold it.",
   "bin": {
     "agent-harness": "./bin/install.js",
     "agent-harness-init": "./bin/install.js"
