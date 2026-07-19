@@ -17,18 +17,28 @@
 # Titles vary per block ("进度报告", "进展 · 数据基础与三种模式", "状态"), so --title overrides the
 # default while the emoji stay bound to the block TYPE.
 #
-#   blockrule.sh review                          # just the rule line
-#   blockrule.sh review --heading                # rule, blank, `## <emoji> <title>`, blank, rule
-#   blockrule.sh progress --heading --title "进展 · 数据基础与三种模式"
-#   blockrule.sh done --heading
+# The block TYPE is inferred from the title, because an agent writes whatever title the moment calls for
+# and should not also have to decide which of four buckets it belongs in. A title that matches nothing
+# still gets a rule — there is no title this can refuse.
+#
+#   blockrule.sh --title 本轮完成 --heading           # type inferred: done
+#   blockrule.sh --title 进展 · 数据基础与三种模式 --heading   # inferred: progress
+#   blockrule.sh --title 部署清单 --heading           # nothing matched: neutral rule, still works
+#   blockrule.sh review --heading                    # explicit type, default title
+#   blockrule.sh review --heading --title 复审第二轮   # explicit type overrides inference
 #
 # The closing rule is the SAME command as the opening rule: `blockrule.sh <type>`.
 set -uo pipefail
 
 WIDTH="${BR_WIDTH:-8}"
 
-type_name="${1:-}"
-shift 2>/dev/null || true
+# The type is optional and positional, so only claim $1 when it is not a flag. Claiming it
+# unconditionally swallowed the first flag, which made `blockrule.sh --title X` fail on X.
+type_name=""
+case "${1:-}" in
+  ""|--*) ;;
+  *) type_name="$1"; shift ;;
+esac
 heading=0
 title_override=""
 while [ $# -gt 0 ]; do
@@ -44,13 +54,31 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+# Infer the block type from the title when no type was given. Keyword sets cover the Chinese and the
+# English an agent actually writes; anything unmatched falls through to a neutral pair rather than an
+# error, because refusing a title the agent legitimately invented would just push the drift elsewhere.
+infer_type() {
+  case "$1" in
+    *审查*|*复审*|*评审*|*检查*|*review*|*Review*|*REVIEW*|*audit*|*Audit*) printf 'review' ;;
+    *进度*|*进展*|*状态*|*进程*|*progress*|*Progress*|*status*|*Status*|*update*|*Update*) printf 'progress' ;;
+    *决策*|*需要你*|*待你*|*确认*|*批准*|*授权*|*等待*|*decision*|*Decision*|*approval*|*Approval*|*needs*|*Needs*) printf 'decision' ;;
+    *完成*|*收尾*|*小结*|*总结*|*结束*|*交付*|*done*|*Done*|*complete*|*Complete*|*summary*|*Summary*|*finished*) printf 'done' ;;
+    *) printf 'note' ;;
+  esac
+}
+
+if [ -z "$type_name" ] && [ -n "$title_override" ]; then
+  type_name="$(infer_type "$title_override")"
+fi
+
 case "$type_name" in
   review)   set -- "👨🏻‍⚕️" "🔍" "👩🏻‍⚕️"; title="review-gate 审查" ;;
   progress) set -- "🚀" "🏎️";             title="进度报告" ;;
   decision) set -- "🔔" "⏰";              title="需要你决策" ;;
   done)     set -- "🎉" "🥳";              title="本轮完成" ;;
-  "")       printf 'blockrule: a block type is required (review|progress|decision|done)\n' >&2; exit 1 ;;
-  *)        printf 'blockrule: unknown block type %s (have: review, progress, decision, done)\n' "$type_name" >&2; exit 1 ;;
+  note)     set -- "📌" "📎";              title="说明" ;;
+  "")       printf 'blockrule: give a type (review|progress|decision|done|note) or a --title to infer one from\n' >&2; exit 1 ;;
+  *)        printf 'blockrule: unknown block type %s (have: review, progress, decision, done, note)\n' "$type_name" >&2; exit 1 ;;
 esac
 
 [ -n "$title_override" ] && title="$title_override"

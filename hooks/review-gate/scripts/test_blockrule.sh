@@ -82,6 +82,37 @@ errtext="$(bash "$BR" nope 2>&1 || true)"
 case "$errtext" in *"have: review, progress, decision, done"*) r=yes ;; *) r=no ;; esac
 chkTrue "the error lists the valid types" "$r"
 
+# 9. Any title adapts. An agent writes whatever title the moment calls for; it must never also have to
+#    decide which bucket that is, and no title may be refused.
+infer(){ bash "$BR" --title "$1"; }
+chk "完成-type title infers done"        "$(infer '本轮完成')"                 "🎉🥳🎉🥳🎉🥳🎉🥳"
+chk "进展-type title infers progress"    "$(infer '进展 · 数据基础与三种模式')"   "🚀🏎️🚀🏎️🚀🏎️🚀🏎️"
+chk "状态 alone infers progress"         "$(infer '状态')"                    "🚀🏎️🚀🏎️🚀🏎️🚀🏎️"
+chk "审查-type title infers review"      "$(infer 'review-gate 审查')"        "👨🏻‍⚕️🔍👩🏻‍⚕️👨🏻‍⚕️🔍👩🏻‍⚕️👨🏻‍⚕️🔍"
+chk "复审 also infers review"            "$(infer '第三轮复审结果')"            "👨🏻‍⚕️🔍👩🏻‍⚕️👨🏻‍⚕️🔍👩🏻‍⚕️👨🏻‍⚕️🔍"
+chk "决策-type title infers decision"    "$(infer '需要你决策')"               "🔔⏰🔔⏰🔔⏰🔔⏰"
+chk "授权 also infers decision"          "$(infer '等待授权')"                 "🔔⏰🔔⏰🔔⏰🔔⏰"
+chk "English Summary infers done"        "$(infer 'Deployment Summary')"      "🎉🥳🎉🥳🎉🥳🎉🥳"
+chk "English Review infers review"       "$(infer 'Round 2 Review')"          "👨🏻‍⚕️🔍👩🏻‍⚕️👨🏻‍⚕️🔍👩🏻‍⚕️👨🏻‍⚕️🔍"
+
+# An unmatched title still gets a rule. Refusing would push the drift somewhere else.
+chk "an unmatched title falls back to neutral" "$(infer '部署清单')"           "📌📎📌📎📌📎📌📎"
+chk "a nonsense title still works"             "$(infer '随便写个什么')"        "📌📎📌📎📌📎📌📎"
+for t in '部署清单' 'x' '很长很长的一个标题里面什么关键词都没有' 'Ω≈ç√'; do
+  out="$(bash "$BR" --title "$t")"; rc=$?
+  chk "title '$t' exits 0" "$rc" "0"
+  [ -n "$out" ] && r=yes || r=no; chkTrue "title '$t' still produces a rule" "$r"
+done
+
+# An explicit type wins over inference, so a deliberate choice is always available.
+chk "explicit type overrides inference" "$(bash "$BR" review --title '部署清单')" "👨🏻‍⚕️🔍👩🏻‍⚕️👨🏻‍⚕️🔍👩🏻‍⚕️👨🏻‍⚕️🔍"
+chkTrue "inferred block keeps the custom title in its heading" \
+  "$(bash "$BR" --title '进展 · 数据基础与三种模式' --heading | grep -q '## 🚀 进展 · 数据基础与三种模式' && echo yes || echo no)"
+
+# Neither a type nor a title is the one case that cannot be answered.
+bash "$BR" >/dev/null 2>&1; chk "no type and no title exits 1" "$?" "1"
+
+
 echo
 if [ "$fail" -eq 0 ]; then echo "blockrule.sh: all $pass checks PASS"; else echo "blockrule.sh: $fail FAIL / $pass pass"; fi
 [ "$fail" -eq 0 ]

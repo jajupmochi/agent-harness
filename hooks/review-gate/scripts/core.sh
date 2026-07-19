@@ -146,20 +146,19 @@ five shapes, every one of them seen in real output:
     eg4  a stray rule line with nothing under it
     eg5  one block closing rule butted straight against the next block opening rule
 
-Run this instead. The SAME command produces the opening and the closing rule, so a mismatched or
-orphaned pair is not something an argument can get wrong:
+Run this instead. Pass the TITLE you actually want; the emoji are chosen from it, so you never have to
+decide which bucket a block belongs in. The SAME command produces the opening and the closing rule, so a
+mismatched or orphaned pair is not something an argument can get wrong:
 
     BR=\$HOME/.claude/hooks/review-gate/blockrule.sh
-    bash \$BR review --heading     # rule, blank, heading line, blank, rule
-    ... the review body ...
-    bash \$BR review               # the closing rule: identical string, same command
+    bash \$BR --title 本轮完成 --heading      # rule, blank, heading line, blank, rule
+    ... the block body ...
+    bash \$BR --title 本轮完成                # the closing rule: identical string, same command
 
-Titles vary, so pass --title when the default does not fit:
-
-    bash \$BR progress --heading --title 进展 · 数据基础与三种模式
-
-The emoji alternate WITHIN the line (🎉🥳🎉🥳🎉🥳🎉🥳), which is what makes the opening and closing rules
-identical. Each type has its own set: review 👨🏻‍⚕️🔍👩🏻‍⚕️, progress 🚀🏎️, decision 🔔⏰, done 🎉🥳.
+Any title works. 审查/复审/review map to 👨🏻‍⚕️🔍👩🏻‍⚕️, 进度/进展/状态/progress to 🚀🏎️,
+决策/需要你/授权/decision to 🔔⏰, 完成/小结/总结/summary to 🎉🥳, and a title matching none of those
+gets a neutral 📌📎 rather than an error. Pass an explicit type first when you want to override the
+inference: bash \$BR review --title 部署清单
 
 Three hard rules, one per observed failure:
 1. NEVER put a bar (the U+2501 heavy line) anywhere near an emoji rule. Pick one; the emoji rule is it.
